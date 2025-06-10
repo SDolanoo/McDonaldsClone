@@ -15,10 +15,10 @@ interface ProductDao {
     fun getAll(): Flow<List<ProductEntity>>
 
     @Query("SELECT * FROM products WHERE categoryId = :categoryId")
-    fun getByCategory(categoryId: Int): Flow<List<ProductEntity>>
+    fun getByCategory(categoryId: Long): Flow<List<ProductEntity>>
 
     @Query("SELECT * FROM products WHERE id = :id")
-    suspend fun getById(id: Int): ProductEntity?
+    suspend fun getById(id: Long): ProductEntity?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(products: List<ProductEntity>)

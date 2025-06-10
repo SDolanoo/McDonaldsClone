@@ -19,7 +19,7 @@ interface CouponDao {
     fun getActive(today: String = LocalDate.now().toString()): Flow<List<CouponEntity>>
 
     @Query("UPDATE coupons SET isUsed = 1 WHERE id = :id")
-    suspend fun markAsUsed(id: Int)
+    suspend fun markAsUsed(id: Long)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(coupons: List<CouponEntity>)

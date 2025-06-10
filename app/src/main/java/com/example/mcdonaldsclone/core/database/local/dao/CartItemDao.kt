@@ -15,7 +15,7 @@ interface CartItemDao {
     fun getAll(): Flow<List<CartItemEntity>>
 
     @Query("SELECT * FROM cart_items WHERE productId = :productId")
-    suspend fun getByProductId(productId: Int): CartItemEntity?
+    suspend fun getByProductId(productId: Long): CartItemEntity?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun upsert(item: CartItemEntity)

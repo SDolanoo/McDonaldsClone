@@ -5,6 +5,6 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "loyalty_points")
 data class LoyaltyPointsEntity(
-    @PrimaryKey val id: Int = 0,
+    @PrimaryKey val id: Long = 0,
     val currentPoints: Int
 )

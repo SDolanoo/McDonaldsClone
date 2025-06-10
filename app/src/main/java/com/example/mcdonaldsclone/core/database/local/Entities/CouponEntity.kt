@@ -6,7 +6,7 @@ import java.time.LocalDate
 
 @Entity(tableName = "coupons")
 data class CouponEntity(
-    @PrimaryKey val id: Int,
+    @PrimaryKey val id: Long,
     val title: String,
     val description: String,
     val imageUrl: String,
