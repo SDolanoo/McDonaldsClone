@@ -40,6 +40,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
 import com.example.mcdonaldsclone.core.navigation.AppNavGraph
+import com.example.mcdonaldsclone.features.home.FakePromo
+import com.example.mcdonaldsclone.features.home.PromoTextCard
+import com.example.mcdonaldsclone.features.mojeM.OkazYeahCard
 import com.example.mcdonaldsclone.ui.theme.McDonaldsCloneTheme
 
 class MainActivity : ComponentActivity() {
@@ -76,12 +79,13 @@ class MainActivity : ComponentActivity() {
                         )
                     }
 
-                    item {
-                        ImageOverlayTextCard(
-                            title = "Karta testowa",
-                            titleColor = Color.White,
-                            overlayColor = Color.Black.copy(alpha = 0.6f),
-                            onClick = TODO()
+                    item{
+                        PromoTextCard(
+                            title = "Test",
+                            subtitle = "promo.subtitle",
+                            titleColor = Color(0xFF85EAB9),
+                            textBackgroundColor = Color(0xFF000000),
+                            imageColor = Color(0xFFD0B783)
                         )
                     }
                 }
@@ -89,6 +93,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+
 
 @Composable
 fun SmallCard(
@@ -114,91 +119,6 @@ fun SmallCard(
             Icon(imageVector = icon, contentDescription = null, modifier = Modifier.size(32.dp))
             Spacer(modifier = Modifier.height(8.dp))
             Text(text = text, style = MaterialTheme.typography.labelMedium, textAlign = TextAlign.Center)
-        }
-    }
-}
-
-@Composable
-fun okazYeahCard(
-    title: String,
-    modifier: Modifier,
-    onClick: () -> Unit = {},
-) {
-    Card(
-        modifier = modifier
-            .fillMaxWidth()
-            .clickable { onClick() },
-        shape = RoundedCornerShape(16.dp),
-        elevation = CardDefaults.cardElevation(8.dp)
-    ) {
-        Column {
-            Box(
-                modifier = Modifier
-                    .height(180.dp)
-                    .fillMaxWidth()
-                    .background(Color(0xFF2E7D32)) // Placeholder image
-            )
-
-            Text(
-                modifier = Modifier.padding(16.dp),
-                style = MaterialTheme.typography.titleMedium,
-                text = title
-            )
-        }
-    }
-}
-
-@Composable
-fun ImageOverlayTextCard(
-    title: String,
-    titleColor: Color = Color.White,
-    overlayColor: Color = Color.Black,
-    modifier: Modifier = Modifier,
-    onClick: () -> Unit = {}
-) {
-    Card(
-        modifier = modifier
-            .fillMaxWidth()
-            .height(200.dp)
-            .clickable { onClick() },
-        shape = RoundedCornerShape(16.dp),
-        elevation = CardDefaults.cardElevation(8.dp)
-    ) {
-        Box {
-            // Background image or placeholder
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(Color(0xFF2E7D32)) // Placeholder image
-            )
-
-            // Gradient overlay at the bottom
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(
-                        Brush.verticalGradient(
-                            colors = listOf(Color.Transparent, overlayColor),
-                            startY = 300f, // bottom
-                            endY = 375f      // approx. middle
-                        )
-                    )
-            )
-
-            // Text at bottom
-            Box(
-                modifier = Modifier
-                    .align(Alignment.BottomStart)
-                    .fillMaxWidth()
-                    .background(Color.Transparent)
-                    .padding(16.dp)
-            ) {
-                Text(
-                    text = title,
-                    color = titleColor,
-                    style = MaterialTheme.typography.titleMedium
-                )
-            }
         }
     }
 }
@@ -239,17 +159,20 @@ fun CardShowcaseScreen() {
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        item {
-            ImageOverlayTextCard(
-                title = "Karta testowa",
-                titleColor = Color.White,
-                overlayColor = Color.Black.copy(alpha = 0.9f)
+        item{
+            PromoTextCard(
+                title = "Test",
+                subtitle = "promo.subtitle",
+                titleColor = Color(0xFF85EAB9),
+                textBackgroundColor = Color(0xFF000000),
+                imageColor = Color(0xFFD0B783)
             )
         }
 
         item {
-            okazYeahCard(
+            OkazYeahCard(
                 title = "Test Lorem Impsum dolor sit amet",
+                category = "Hello",
                 modifier = Modifier
                     .height(250.dp)
                     .fillMaxWidth()

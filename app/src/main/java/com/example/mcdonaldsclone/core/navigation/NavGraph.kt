@@ -7,12 +7,20 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.mcdonaldsclone.features.home.HomeScreen
+import com.example.mcdonaldsclone.features.mojeM.MojeMScreen
 
 @Composable
 fun AppNavGraph(navController: NavHostController) {
-    NavHost(navController, startDestination = Screen.Home.route) {
+    NavHost(navController, startDestination = Screen.MojeM.route) {
         composable(Screen.Home.route) {
             HomeScreen(
+                onNavigateToCoupons = { navController.navigate(Screen.Coupons.route) },
+                // ...
+            )
+        }
+
+        composable(Screen.MojeM.route) {
+            MojeMScreen(
                 onNavigateToCoupons = { navController.navigate(Screen.Coupons.route) },
                 // ...
             )

@@ -56,28 +56,34 @@ object FakeDataProvider {
     val coupons = listOf(
         Coupon(
             1,
-            "2 za 1 Big Mac",
-            "Kup jeden Big Mac, drugi gratis!",
-            "https://example.com/coupon1.jpg",
+            "McZestaw Powiększony WieśMac + McChicken",
+            "Wołowina",
+            3490,
+            "https://example.com/coupon2.jpg",
             false,
-            LocalDate.now().plusDays(5)
+            "10:30",
+            "05:00"
         ),
         Coupon(
             2,
-            "-20% na McZestaw",
-            "Zniżka na dowolny zestaw",
-            "https://example.com/coupon2.jpg",
+            "McWrap Klasyczny + małe frytki",
+            "Kurczak",
+            1850,
+            "https://example.com/coupon3.jpg",
             false,
-            LocalDate.now().plusDays(3)
+            "10:30",
+            "05:00"
         ),
         Coupon(
             3,
-            "Gratis McFlurry",
-            "Przy zamówieniu powyżej 30zł",
-            "https://example.com/coupon3.jpg",
-            true,
-            LocalDate.now().minusDays(1)
-        ) // expired
+            "2x (McWrap Klasyczny + małe frytki)",
+            "Kurczak",
+            3700,
+            "https://example.com/coupon1.jpg",
+            false,
+            "10:30",
+            "05:00"
+        ),
     )
 
     val cartItems = listOf(

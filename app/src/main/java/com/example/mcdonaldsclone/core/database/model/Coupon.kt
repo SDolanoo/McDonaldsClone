@@ -5,8 +5,10 @@ import java.time.LocalDate
 data class Coupon(
     val id: Int,
     val title: String,
-    val description: String,
+    val category: String,
+    val price: Int,
     val imageUrl: String,
     val isUsed: Boolean = false,
-    val expirationDate: LocalDate
+    val availableFrom: String,
+    val availableTo: String
 )
