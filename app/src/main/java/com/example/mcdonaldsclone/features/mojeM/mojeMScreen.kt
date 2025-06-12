@@ -1,8 +1,5 @@
 package com.example.mcdonaldsclone.features.mojeM
 
-import android.R.attr.category
-import android.R.attr.onClick
-import android.R.attr.text
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -17,9 +14,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Card
@@ -38,18 +40,33 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.example.mcdonaldsclone.app.SmallCard
 import com.example.mcdonaldsclone.core.database.fakeData.FakeDataProvider
-import com.example.mcdonaldsclone.features.home.FakePromo
-import com.example.mcdonaldsclone.features.home.PromoTextCard
+
+data class LoyaltyItem(
+    val id: Int,
+    val title: String,
+    val points: Int
+)
+
+object LoyaltyItems {
+    val items = listOf(
+        LoyaltyItem(id = 1, title = "Mała kawa gratis", points = 100),
+        LoyaltyItem(id = 2, title = "Lody w rożku", points = 150),
+        LoyaltyItem(id = 3, title = "Duże frytki", points = 200),
+        LoyaltyItem(id = 4, title = "Cheeseburger", points = 250),
+        LoyaltyItem(id = 5, title = "McFlurry", points = 300),
+        LoyaltyItem(id = 6, title = "Zestaw śniadaniowy", points = 350),
+        LoyaltyItem(id = 7, title = "Wrap klasyczny", points = 400),
+        LoyaltyItem(id = 8, title = "Big Mac", points = 450),
+        LoyaltyItem(id = 9, title = "Zestaw Medium", points = 500),
+        LoyaltyItem(id = 10, title = "Zestaw Premium + napój", points = 600)
+    )
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -115,7 +132,10 @@ fun ScrollContent(
 
         item {
             Column(modifier = Modifier.padding(horizontal = 24.dp)) {
-                Row {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
                     Text(
                         text = "MojeM Nagrody",
                         style = MaterialTheme.typography.titleLarge,
@@ -129,55 +149,78 @@ fun ScrollContent(
                     )
                 }
 
-
                 Spacer(modifier = Modifier.height(12.dp))
 
-                Row(
-                    modifier = Modifier.fillMaxWidth()
+                LazyRow(
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
-                    SmallCard(
-                        icon = Icons.Default.Star,
-                        text = "Mała karta"
-                    )
-                    Spacer(modifier = Modifier.weight(1f))
-                    SmallCard(
-                        icon = Icons.Default.Star,
-                        text = "Mała karta"
-                    )
-                    Spacer(modifier = Modifier.weight(1f))
-                    SmallCard(
-                        icon = Icons.Default.Star,
-                        text = "Mała karta"
-                    )
+                    items(items = LoyaltyItems.items.take(4)) { loyaltyItem ->
+                        LoyaltyCard(
+                            text = "${loyaltyItem.title}\n${loyaltyItem.points} pkt"
+                        )
+                    }
 
+                    item {
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center,
+                            modifier = Modifier
+                                .padding(end = 12.dp)
+                                .size(width = 160.dp, height = 180.dp)
+                        ) {
+                            IconButton(
+                                onClick = { /* TODO: Show more loyalty items */ },
+                                modifier = Modifier
+                                    .size(48.dp)
+                                    .background(
+                                        color = Color(0xFF2E7D32),
+                                        shape = CircleShape
+                                    )
+                            ) {
+                                Icon(
+                                    imageVector = Icons.AutoMirrored.Filled.ArrowForward,
+                                    contentDescription = "Zobacz więcej",
+                                    tint = Color.White
+                                )
+                            }
+                            Spacer(modifier = Modifier.height(4.dp))
+                            Text(
+                                text = "Zobacz więcej",
+                                style = MaterialTheme.typography.labelMedium,
+                                textAlign = TextAlign.Center
+                            )
+                        }
+                    }
                 }
+
             }
         }
 
         item { Spacer(modifier = Modifier.height(12.dp)) }
 
-        FakeDataProvider.coupons.forEach { coupon ->
-            item{
-                Column(modifier = Modifier.padding(horizontal = 24.dp)) {
-                    Text(
-                        text = "MojeM okazYEAH!",
-                        style = MaterialTheme.typography.titleLarge,
-                        fontWeight = FontWeight.Bold
-                    )
-
-
-                    Spacer(modifier = Modifier.height(12.dp))
-
-                    OkazYeahCard(
-                        title = coupon.title,
-                        category = coupon.category,
-                        modifier = Modifier
-                            .height(250.dp)
-                            .fillMaxWidth()
-                    )
-                }
+        item {
+            Column(modifier = Modifier.padding(horizontal = 24.dp)) {
+                Text(
+                    text = "MojeM okazYEAH!",
+                    style = MaterialTheme.typography.titleLarge,
+                    fontWeight = FontWeight.Bold
+                )
+                Spacer(modifier = Modifier.height(12.dp))
             }
         }
+
+        items(FakeDataProvider.coupons) { coupon ->
+            Column(modifier = Modifier.padding(horizontal = 24.dp)) {
+                OkazYeahCard(
+                    title = coupon.title,
+                    category = coupon.category,
+                    modifier = Modifier
+                        .height(250.dp)
+                        .fillMaxWidth()
+                )
+            }
+        }
+
 
     }
 }
@@ -246,15 +289,15 @@ fun CardQR(
 }
 
 @Composable
-fun LoyaltyCards(
-    icon: ImageVector,
+fun LoyaltyCard(
     text: String,
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {})
 {
     Card(
         modifier = modifier
-            .size(100.dp)
+            .height(160.dp)
+            .width(120.dp)
             .clickable { onClick() },
         shape = RoundedCornerShape(12.dp),
         elevation = CardDefaults.cardElevation(6.dp)
