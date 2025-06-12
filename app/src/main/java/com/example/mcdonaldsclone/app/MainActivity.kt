@@ -117,56 +117,6 @@ fun SmallCard(
         }
     }
 }
-//
-//@Composable
-//fun FullScreenImageCard(
-//    @DrawableRes imageRes: Int,
-//    modifier: Modifier = Modifier
-//) {
-//    Card(
-//        modifier = modifier
-//            .fillMaxSize(),
-//        shape = RectangleShape,
-//        elevation = CardDefaults.cardElevation(0.dp)
-//    ) {
-//        Image(
-//            painter = painterResource(imageRes),
-//            contentDescription = null,
-//            contentScale = ContentScale.Crop,
-//            modifier = Modifier.fillMaxSize()
-//        )
-//    }
-//}
-//
-//@Composable
-//fun ImageTextCard(
-//    @DrawableRes imageRes: Int,
-//    title: String,
-//    modifier: Modifier = Modifier,
-//    onClick: () -> Unit = {}
-//) {
-//    Card(
-//        modifier = modifier
-//            .fillMaxWidth()
-//            .clickable { onClick() },
-//        shape = RoundedCornerShape(16.dp),
-//        elevation = CardDefaults.cardElevation(8.dp)
-//    ) {
-//        Column {
-//            Image(
-//                painter = painterResource(imageRes),
-//                contentDescription = null,
-//                contentScale = ContentScale.Crop,
-//                modifier = Modifier.height(180.dp).fillMaxWidth()
-//            )
-//            Text(
-//                text = title,
-//                style = MaterialTheme.typography.titleMedium,
-//                modifier = Modifier.padding(16.dp)
-//            )
-//        }
-//    }
-//}
 
 @Composable
 fun okazYeahCard(
@@ -274,7 +224,10 @@ fun FullScreenImageCardPreview(
 @Composable
 fun CardShowcasePreview() {
     MaterialTheme {
-        CardShowcaseScreen()
+        val navController = rememberNavController()
+        AppNavGraph(
+            navController = navController
+        )
     }
 }
 
