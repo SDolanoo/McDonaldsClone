@@ -3,7 +3,7 @@ package com.example.mcdonaldsclone.core.database.model
 import java.time.LocalDate
 
 data class Coupon(
-    val id: Int,
+    val id: Long,
     val title: String,
     val category: String,
     val price: Int,
