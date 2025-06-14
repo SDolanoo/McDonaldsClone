@@ -109,7 +109,7 @@ fun HomeScreen(
                 ),
                 title = {
                     Text(
-                        "Centered Top App Bar",
+                        "QR tu",
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
@@ -134,72 +134,66 @@ fun HomeScreen(
             )
         }
     ) { innerPadding ->
-        ScrollContent(innerPadding)
-    }
-}
-
-@Composable
-fun ScrollContent(
-    innerPadding: PaddingValues
-) {
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxSize(),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
-        item {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(300.dp)
-                    .background(Color(0xFF8A0000))
-            )
-        }
-
-        item {
-            Column(modifier = Modifier.padding(horizontal = 24.dp)) {
-                Text(
-                    text = "Czego dziś szukasz?",
-                    style = MaterialTheme.typography.titleLarge,
-                    fontWeight = FontWeight.Bold
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize(),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            item {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(300.dp)
+                        .background(Color(0xFF8A0000))
                 )
+            }
 
-                Spacer(modifier = Modifier.height(12.dp))
-
-                Row(
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    SmallCard(
-                        icon = Icons.Default.Star,
-                        text = "Mała karta"
-                    )
-                    Spacer(modifier = Modifier.weight(1f))
-                    SmallCard(
-                        icon = Icons.Default.Star,
-                        text = "Mała karta"
-                    )
-                    Spacer(modifier = Modifier.weight(1f))
-                    SmallCard(
-                        icon = Icons.Default.Star,
-                        text = "Mała karta"
+            item {
+                Column(modifier = Modifier.padding(horizontal = 24.dp)) {
+                    Text(
+                        text = "Czego dziś szukasz?",
+                        style = MaterialTheme.typography.titleLarge,
+                        fontWeight = FontWeight.Bold
                     )
 
+                    Spacer(modifier = Modifier.height(12.dp))
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        SmallCard(
+                            icon = Icons.Default.Star,
+                            text = "MojeM",
+                            onClick = { onNavigateToCoupons() }
+                        )
+                        Spacer(modifier = Modifier.weight(1f))
+                        SmallCard(
+                            icon = Icons.Default.Star,
+                            text = "Mała karta"
+                        )
+                        Spacer(modifier = Modifier.weight(1f))
+                        SmallCard(
+                            icon = Icons.Default.Star,
+                            text = "Mała karta"
+                        )
+
+                    }
                 }
             }
-        }
 
-        FakePromo.promos.forEach { promo ->
-            item{
-                PromoTextCard(
-                    title = promo.title,
-                    subtitle = promo.subtitle,
-                    titleColor = promo.textColor,
-                    textBackgroundColor = promo.textBackgroundColor,
-                    imageColor = promo.imageColor
-                )
+            FakePromo.promos.forEach { promo ->
+                item{
+                    PromoTextCard(
+                        title = promo.title,
+                        subtitle = promo.subtitle,
+                        titleColor = promo.textColor,
+                        textBackgroundColor = promo.textBackgroundColor,
+                        imageColor = promo.imageColor
+                    )
+                }
             }
-        }
 
+        }
     }
 }
 

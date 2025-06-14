@@ -14,13 +14,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Star
@@ -46,32 +46,13 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.mcdonaldsclone.core.database.fakeData.FakeDataProvider
-
-data class LoyaltyItem(
-    val id: Int,
-    val title: String,
-    val points: Int
-)
-
-object LoyaltyItems {
-    val items = listOf(
-        LoyaltyItem(id = 1, title = "Mała kawa gratis", points = 100),
-        LoyaltyItem(id = 2, title = "Lody w rożku", points = 150),
-        LoyaltyItem(id = 3, title = "Duże frytki", points = 200),
-        LoyaltyItem(id = 4, title = "Cheeseburger", points = 250),
-        LoyaltyItem(id = 5, title = "McFlurry", points = 300),
-        LoyaltyItem(id = 6, title = "Zestaw śniadaniowy", points = 350),
-        LoyaltyItem(id = 7, title = "Wrap klasyczny", points = 400),
-        LoyaltyItem(id = 8, title = "Big Mac", points = 450),
-        LoyaltyItem(id = 9, title = "Zestaw Medium", points = 500),
-        LoyaltyItem(id = 10, title = "Zestaw Premium + napój", points = 600)
-    )
-}
+import com.example.mcdonaldsclone.features.loyalty.LoyaltyCard
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MojeMScreen(
-    onNavigateToCoupons: () -> Unit
+    onNavigateToCoupons: (Long) -> Unit,
+    onNavigateToLoyalty: () -> Unit
 ){
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
@@ -84,38 +65,40 @@ fun MojeMScreen(
                 ),
                 title = {
                     Text(
-                        "Centered Top App Bar",
+                        "",
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
                 },
                 navigationIcon = {
-                    IconButton(onClick = { /* do something */ }) {
-                        Icon(
-                            imageVector = Icons.Default.Star,
-                            contentDescription = "Localized description"
-                        )
-                    }
+                    Text(
+                        text = "MojeM okazje",
+                        fontWeight = FontWeight.Bold
+                    )
                 },
                 actions = {
-                    IconButton(onClick = { /* do something */ }) {
-                        Icon(
-                            imageVector = Icons.Filled.Menu,
-                            contentDescription = "Localized description"
-                        )
-                    }
+                    Text(
+                        text = "${FakeDataProvider.loyaltyPoints.currentPoints} pkt",
+                        fontWeight = FontWeight.Bold
+                    )
                 },
                 scrollBehavior = scrollBehavior,
             )
         }
     ) { innerPadding ->
-        ScrollContent(innerPadding)
+        ScrollContent(
+            innerPadding,
+            onNavigateToCoupons = { couponId ->  onNavigateToCoupons(couponId) },
+            onNavigateToLoyalty = { onNavigateToLoyalty() }
+        )
     }
 }
 
 @Composable
 fun ScrollContent(
-    innerPadding: PaddingValues
+    innerPadding: PaddingValues,
+    onNavigateToCoupons: (Long) -> Unit,
+    onNavigateToLoyalty: () -> Unit
 ) {
     LazyColumn(
         modifier = Modifier
@@ -154,9 +137,10 @@ fun ScrollContent(
                 LazyRow(
                     horizontalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
-                    items(items = LoyaltyItems.items.take(4)) { loyaltyItem ->
+                    items(items = FakeDataProvider.loyaltyItems.take(4)) { loyaltyItem ->
                         LoyaltyCard(
-                            text = "${loyaltyItem.title}\n${loyaltyItem.points} pkt"
+                            text = "${loyaltyItem.title}\n${loyaltyItem.points} pkt",
+                            onClick = { onNavigateToLoyalty() }
                         )
                     }
 
@@ -169,7 +153,7 @@ fun ScrollContent(
                                 .size(width = 160.dp, height = 180.dp)
                         ) {
                             IconButton(
-                                onClick = { /* TODO: Show more loyalty items */ },
+                                onClick = { onNavigateToLoyalty() },
                                 modifier = Modifier
                                     .size(48.dp)
                                     .background(
@@ -216,7 +200,8 @@ fun ScrollContent(
                     category = coupon.category,
                     modifier = Modifier
                         .height(250.dp)
-                        .fillMaxWidth()
+                        .fillMaxWidth(),
+                    onClick = { onNavigateToCoupons(coupon.id) }
                 )
             }
         }
@@ -288,38 +273,7 @@ fun CardQR(
     }
 }
 
-@Composable
-fun LoyaltyCard(
-    text: String,
-    modifier: Modifier = Modifier,
-    onClick: () -> Unit = {})
-{
-    Card(
-        modifier = modifier
-            .height(160.dp)
-            .width(120.dp)
-            .clickable { onClick() },
-        shape = RoundedCornerShape(12.dp),
-        elevation = CardDefaults.cardElevation(6.dp)
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(8.dp),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Box(
-                modifier = Modifier
-                    .height(180.dp)
-                    .fillMaxWidth()
-                    .background(Color(0xFF2E7D32)) // Placeholder image
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(text = text, style = MaterialTheme.typography.labelMedium, textAlign = TextAlign.Center)
-        }
-    }
-}
+
 
 @Composable
 fun OkazYeahCard(

@@ -4,7 +4,7 @@ sealed class Screen(val route: String) {
     object Home : Screen("home")
     object Coupons : Screen("coupons")
     object CouponDetails : Screen("coupons/{couponId}") {
-        fun createRoute(couponId: String) = "coupons/$couponId"
+        fun createRoute(couponId: Long) = "coupons/$couponId"
     }
 
     object Menu : Screen("menu")
@@ -14,6 +14,9 @@ sealed class Screen(val route: String) {
 
     object Cart : Screen("cart")
     object Loyalty : Screen("loyalty")
+    object LoyaltyDetails : Screen("loyalty/{loyaltyItemId}") {
+        fun createRoute(loyaltyItemId: Long) = "loyalty/$loyaltyItemId"
+    }
     object Settings : Screen("settings")
     object MojeM : Screen("mojeM")
 }

@@ -3,10 +3,11 @@ package com.example.mcdonaldsclone.core.database.fakeData
 import com.example.mcdonaldsclone.core.database.model.CartItem
 import com.example.mcdonaldsclone.core.database.model.Category
 import com.example.mcdonaldsclone.core.database.model.Coupon
+import com.example.mcdonaldsclone.core.database.model.LoyaltyItem
 import com.example.mcdonaldsclone.core.database.model.LoyaltyPoints
 import com.example.mcdonaldsclone.core.database.model.Product
 import com.example.mcdonaldsclone.core.database.model.UserSettings
-import java.time.LocalDate
+import kotlin.collections.listOf
 
 object FakeDataProvider {
 
@@ -85,6 +86,20 @@ object FakeDataProvider {
             "05:00"
         ),
     )
+
+    val loyaltyItems = listOf(
+        LoyaltyItem(id = 1, title = "Mała kawa gratis", points = 100),
+        LoyaltyItem(id = 2, title = "Lody w rożku", points = 150),
+        LoyaltyItem(id = 3, title = "Duże frytki", points = 200),
+        LoyaltyItem(id = 4, title = "Cheeseburger", points = 250),
+        LoyaltyItem(id = 5, title = "McFlurry", points = 300),
+        LoyaltyItem(id = 6, title = "Zestaw śniadaniowy", points = 350),
+        LoyaltyItem(id = 7, title = "Wrap klasyczny", points = 400),
+        LoyaltyItem(id = 8, title = "Big Mac", points = 450),
+        LoyaltyItem(id = 9, title = "Zestaw Medium", points = 500),
+        LoyaltyItem(id = 10, title = "Zestaw Premium + napój", points = 600)
+    )
+
 
     val cartItems = listOf(
         CartItem(1, productId = 1, quantity = 2),
