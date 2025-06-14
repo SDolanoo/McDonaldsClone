@@ -49,6 +49,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.mcdonaldsclone.app.SmallCard
+import com.example.mcdonaldsclone.core.database.fakeData.FakeDataProvider
 import com.example.mcdonaldsclone.core.database.model.Category
 
 data class Promo(
@@ -115,20 +116,16 @@ fun HomeScreen(
                     )
                 },
                 navigationIcon = {
-                    IconButton(onClick = { /* do something */ }) {
-                        Icon(
-                            imageVector = Icons.Default.Star,
-                            contentDescription = "Localized description"
-                        )
-                    }
+                    Text(
+                        text = "M",
+                        fontWeight = FontWeight.Bold
+                    )
                 },
                 actions = {
-                    IconButton(onClick = { /* do something */ }) {
-                        Icon(
-                            imageVector = Icons.Filled.Menu,
-                            contentDescription = "Localized description"
-                        )
-                    }
+                    Text(
+                        text = "${FakeDataProvider.loyaltyPoints.currentPoints} pkt",
+                        fontWeight = FontWeight.Bold
+                    )
                 },
                 scrollBehavior = scrollBehavior,
             )
