@@ -3,6 +3,7 @@ package com.example.mcdonaldsclone.features.home
 import android.R.attr.subtitle
 import android.annotation.SuppressLint
 import androidx.annotation.DrawableRes
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -43,16 +44,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInRoot
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.mcdonaldsclone.app.SmallCard
 import com.example.mcdonaldsclone.core.database.fakeData.FakeDataProvider
 import com.example.mcdonaldsclone.core.database.model.Category
-
+import com.example.mcdonaldsclone.R
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -99,7 +102,10 @@ fun HomeScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             item {
-                Box(
+                Image(
+                    painter = painterResource(R.drawable.promo6),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(300.dp)
@@ -121,18 +127,18 @@ fun HomeScreen(
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         SmallCard(
-                            icon = Icons.Default.Star,
+                            imageResId = R.drawable.icon3,
                             text = "MojeM",
                             onClick = { onNavigateToCoupons() }
                         )
                         Spacer(modifier = Modifier.weight(1f))
                         SmallCard(
-                            icon = Icons.Default.Star,
+                            imageResId = R.drawable.icon2,
                             text = "Mała karta"
                         )
                         Spacer(modifier = Modifier.weight(1f))
                         SmallCard(
-                            icon = Icons.Default.Star,
+                            imageResId = R.drawable.icon,
                             text = "Mała karta"
                         )
 

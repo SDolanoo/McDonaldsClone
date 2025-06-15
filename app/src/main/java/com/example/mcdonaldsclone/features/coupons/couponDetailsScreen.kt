@@ -1,5 +1,6 @@
 package com.example.mcdonaldsclone.features.coupons
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -30,6 +31,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.mcdonaldsclone.core.database.fakeData.FakeDataProvider
@@ -48,13 +51,18 @@ fun CouponDetailsScreen(
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
     ) {
-        // Obrazek/grafika
         Box(
             modifier = Modifier
-                .fillMaxWidth()
                 .height(200.dp)
-                .background(Color.Green)
+                .fillMaxWidth()
         ) {
+            Image(
+                painter = painterResource(item.imageResId),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.matchParentSize()
+            )
+
             IconButton(
                 onClick = { popBack() },
                 modifier = Modifier
@@ -68,6 +76,7 @@ fun CouponDetailsScreen(
                 )
             }
         }
+
 
         Spacer(modifier = Modifier.height(16.dp))
 

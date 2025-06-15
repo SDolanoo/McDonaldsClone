@@ -20,10 +20,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -140,6 +137,7 @@ fun ScrollContent(
                     items(items = FakeDataProvider.loyaltyItems.take(4)) { loyaltyItem ->
                         LoyaltyCard(
                             text = "${loyaltyItem.title}\n${loyaltyItem.points} pkt",
+                            image = loyaltyItem.imageResId,
                             onClick = { onNavigateToLoyalty() }
                         )
                     }
@@ -198,6 +196,7 @@ fun ScrollContent(
                 OkazYeahCard(
                     title = coupon.title,
                     category = coupon.category,
+                    image = coupon.imageResId,
                     modifier = Modifier
                         .height(250.dp)
                         .fillMaxWidth(),
@@ -275,33 +274,3 @@ fun CardQR(
 
 
 
-@Composable
-fun OkazYeahCard(
-    title: String,
-    category: String,
-    modifier: Modifier,
-    onClick: () -> Unit = {},
-) {
-    Card(
-        modifier = modifier
-            .fillMaxWidth()
-            .clickable { onClick() },
-        shape = RoundedCornerShape(16.dp),
-        elevation = CardDefaults.cardElevation(8.dp)
-    ) {
-        Column {
-            Box(
-                modifier = Modifier
-                    .height(180.dp)
-                    .fillMaxWidth()
-                    .background(Color(0xFF2E7D32)) // Placeholder image
-            )
-
-            Text(
-                modifier = Modifier.padding(16.dp),
-                style = MaterialTheme.typography.titleMedium,
-                text = title
-            )
-        }
-    }
-}

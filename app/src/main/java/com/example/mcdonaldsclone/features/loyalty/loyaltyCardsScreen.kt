@@ -87,6 +87,7 @@ fun LoyaltyCardsScreen(
             items(items = FakeDataProvider.loyaltyItems) { loyaltyItem ->
                 LoyaltyCard(
                     text = "${loyaltyItem.points}\n${loyaltyItem.title} pkt",
+                    image = loyaltyItem.imageResId,
                     onClick = { onCardClick(loyaltyItem.id) }
                 )
             }

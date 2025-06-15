@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.DrawableRes
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -40,10 +41,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
 import com.example.mcdonaldsclone.core.navigation.AppNavGraph
-import com.example.mcdonaldsclone.features.home.FakePromo
 import com.example.mcdonaldsclone.features.home.PromoTextCard
 import com.example.mcdonaldsclone.features.mojeM.OkazYeahCard
 import com.example.mcdonaldsclone.ui.theme.McDonaldsCloneTheme
+import com.example.mcdonaldsclone.R
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,12 +73,12 @@ class MainActivity : ComponentActivity() {
                         )
                     }
 
-                    item {
-                        SmallCard(
-                            icon = Icons.Default.Star,
-                            text = "Mała karta"
-                        )
-                    }
+//                    item {
+//                        SmallCard(
+//                            icon = Icons.Default.Star,
+//                            text = "Mała karta"
+//                        )
+//                    }
 
                     item{
                         PromoTextCard(
@@ -85,7 +86,7 @@ class MainActivity : ComponentActivity() {
                             subtitle = "promo.subtitle",
                             titleColor = Color(0xFF85EAB9),
                             textBackgroundColor = Color(0xFF000000),
-                            imageColor = Color(0xFFD0B783)
+                            image = R.drawable.kupon
                         )
                     }
                 }
@@ -97,7 +98,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun SmallCard(
-    icon: ImageVector,
+    @DrawableRes imageResId: Int,
     text: String,
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {}
@@ -116,12 +117,22 @@ fun SmallCard(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Icon(imageVector = icon, contentDescription = null, modifier = Modifier.size(32.dp))
+            Image(
+                painter = painterResource(id = imageResId),
+                contentDescription = null,
+                modifier = Modifier.size(32.dp),
+                contentScale = ContentScale.Fit
+            )
             Spacer(modifier = Modifier.height(8.dp))
-            Text(text = text, style = MaterialTheme.typography.labelMedium, textAlign = TextAlign.Center)
+            Text(
+                text = text,
+                style = MaterialTheme.typography.labelMedium,
+                textAlign = TextAlign.Center
+            )
         }
     }
 }
+
 
 @Composable
 fun FullScreenImageCardPreview(
@@ -151,42 +162,42 @@ fun CardShowcasePreview() {
     }
 }
 
-@Composable
-fun CardShowcaseScreen() {
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
-        item{
-            PromoTextCard(
-                title = "Test",
-                subtitle = "promo.subtitle",
-                titleColor = Color(0xFF85EAB9),
-                textBackgroundColor = Color(0xFF000000),
-                imageColor = Color(0xFFD0B783)
-            )
-        }
-
-        item {
-            OkazYeahCard(
-                title = "Test Lorem Impsum dolor sit amet",
-                category = "Hello",
-                modifier = Modifier
-                    .height(250.dp)
-                    .fillMaxWidth()
-            )
-        }
-
-        item {
-            SmallCard(
-                icon = Icons.Default.Star,
-                text = "Mała karta"
-            )
-        }
-
-
-    }
-}
-
+//@Composable
+//fun CardShowcaseScreen() {
+//    LazyColumn(
+//        modifier = Modifier
+//            .fillMaxSize()
+//            .padding(16.dp),
+//        verticalArrangement = Arrangement.spacedBy(16.dp)
+//    ) {
+//        item{
+//            PromoTextCard(
+//                title = "Test",
+//                subtitle = "promo.subtitle",
+//                titleColor = Color(0xFF85EAB9),
+//                textBackgroundColor = Color(0xFF000000),
+//                imageColor = Color(0xFFD0B783)
+//            )
+//        }
+//
+//        item {
+//            OkazYeahCard(
+//                title = "Test Lorem Impsum dolor sit amet",
+//                category = "Hello",
+//                modifier = Modifier
+//                    .height(250.dp)
+//                    .fillMaxWidth()
+//            )
+//        }
+//
+//        item {
+//            SmallCard(
+//                icon = Icons.Default.Star,
+//                text = "Mała karta"
+//            )
+//        }
+//
+//
+//    }
+//}
+//

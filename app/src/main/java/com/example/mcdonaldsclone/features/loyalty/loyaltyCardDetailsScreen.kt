@@ -1,6 +1,7 @@
 package com.example.mcdonaldsclone.features.loyalty
 
 import android.widget.Button
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -33,6 +34,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.IconButton
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import com.example.mcdonaldsclone.core.database.fakeData.FakeDataProvider
 import com.example.mcdonaldsclone.core.database.model.LoyaltyItem
 
@@ -50,13 +53,18 @@ fun LoyaltyCardDetailsScreen(
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
     ) {
-        // Obrazek/grafika
         Box(
             modifier = Modifier
-                .fillMaxWidth()
                 .height(200.dp)
-                .background(Color.Green)
+                .fillMaxWidth()
         ) {
+            Image(
+                painter = painterResource(item.imageResId),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.matchParentSize()
+            )
+
             IconButton(
                 onClick = { popBack() },
                 modifier = Modifier
@@ -70,6 +78,7 @@ fun LoyaltyCardDetailsScreen(
                 )
             }
         }
+
 
         Spacer(modifier = Modifier.height(16.dp))
 

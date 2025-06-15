@@ -1,6 +1,7 @@
 package com.example.mcdonaldsclone.features.loyalty
 
 import android.R.attr.onClick
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -21,12 +22,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
 @Composable
 fun LoyaltyCard(
     text: String,
+    image: Int,
     modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
@@ -45,11 +49,13 @@ fun LoyaltyCard(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Box(
+            Image(
+                painter = painterResource(image),
+                contentDescription = null,
                 modifier = Modifier
                     .height(160.dp)
-                    .fillMaxWidth()
-                    .background(Color(0xFF2E7D32)) // Placeholder image
+                    .fillMaxWidth(),
+                contentScale = ContentScale.Crop
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(text = text, style = MaterialTheme.typography.labelMedium, textAlign = TextAlign.Center)
