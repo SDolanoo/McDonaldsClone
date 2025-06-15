@@ -1,5 +1,6 @@
 package com.example.mcdonaldsclone.features.mojeM
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -37,11 +39,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.example.mcdonaldsclone.R
 import com.example.mcdonaldsclone.core.database.fakeData.FakeDataProvider
 import com.example.mcdonaldsclone.features.loyalty.LoyaltyCard
 
@@ -49,7 +54,8 @@ import com.example.mcdonaldsclone.features.loyalty.LoyaltyCard
 @Composable
 fun MojeMScreen(
     onNavigateToCoupons: (Long) -> Unit,
-    onNavigateToLoyalty: () -> Unit
+    onNavigateToLoyalty: () -> Unit,
+    onNavigateToQR: () -> Unit
 ){
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
@@ -68,9 +74,12 @@ fun MojeMScreen(
                     )
                 },
                 navigationIcon = {
-                    Text(
-                        text = "MojeM okazje",
-                        fontWeight = FontWeight.Bold
+                    Image(
+                        painter = painterResource(R.drawable.icon5),
+                        contentDescription = null,
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .fillMaxHeight()
                     )
                 },
                 actions = {
@@ -86,7 +95,8 @@ fun MojeMScreen(
         ScrollContent(
             innerPadding,
             onNavigateToCoupons = { couponId ->  onNavigateToCoupons(couponId) },
-            onNavigateToLoyalty = { onNavigateToLoyalty() }
+            onNavigateToLoyalty = { onNavigateToLoyalty() },
+            onNavigateToQR = { onNavigateToQR() }
         )
     }
 }
@@ -95,7 +105,8 @@ fun MojeMScreen(
 fun ScrollContent(
     innerPadding: PaddingValues,
     onNavigateToCoupons: (Long) -> Unit,
-    onNavigateToLoyalty: () -> Unit
+    onNavigateToLoyalty: () -> Unit,
+    onNavigateToQR: () -> Unit
 ) {
     LazyColumn(
         modifier = Modifier
@@ -106,7 +117,8 @@ fun ScrollContent(
             CardQR(
                 modifier = Modifier,
                 topText = "M 408 465",
-                bottomText = "Zeskanuj kod, aby zbierać punkty"
+                bottomText = "Zeskanuj kod, aby zbierać punkty",
+                onClick = { onNavigateToQR() }
             )
         }
 
@@ -213,7 +225,8 @@ fun ScrollContent(
 fun CardQR(
     modifier: Modifier = Modifier,
     topText: String,
-    bottomText: String
+    bottomText: String,
+    onClick: () -> Unit
 ) {
     Card(
         modifier = modifier
@@ -223,10 +236,11 @@ fun CardQR(
                 width = 2.dp,
                 color = Color.White,
                 shape = RoundedCornerShape(16.dp)
-            ),
+            )
+            .clickable { onClick() },
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(containerColor = Color(0xFFFFEB3B)), // żółte tło
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
     ) {
         Column(
             modifier = Modifier

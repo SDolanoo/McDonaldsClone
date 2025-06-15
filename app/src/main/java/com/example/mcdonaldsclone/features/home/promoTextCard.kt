@@ -67,7 +67,10 @@ fun PromoTextCard(
                 cardYInRoot = cardCoords.positionInRoot().y
             },
         shape = shape,
-        elevation = CardDefaults.cardElevation(8.dp)
+        elevation = CardDefaults.cardElevation(8.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.secondaryContainer
+        )
     ) {
         Box(modifier = Modifier.clip(shape)) {
             // Background "image"

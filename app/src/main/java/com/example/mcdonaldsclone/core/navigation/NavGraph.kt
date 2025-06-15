@@ -6,6 +6,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.example.mcdonaldsclone.features.QRCode.QRCodeScreen
 import com.example.mcdonaldsclone.features.coupons.CouponDetailsScreen
 import com.example.mcdonaldsclone.features.home.HomeScreen
 import com.example.mcdonaldsclone.features.loyalty.LoyaltyCardDetailsScreen
@@ -18,7 +19,7 @@ fun AppNavGraph(navController: NavHostController) {
         composable(Screen.Home.route) {
             HomeScreen(
                 onNavigateToCoupons = { navController.navigate(Screen.MojeM.route) },
-                // ...
+                onNavigateToQR = { navController.navigate(Screen.QR.route) }
             )
         }
 
@@ -28,6 +29,7 @@ fun AppNavGraph(navController: NavHostController) {
                     navController.navigate(Screen.CouponDetails.createRoute(couponId))
                 },
                 onNavigateToLoyalty = { navController.navigate(Screen.Loyalty.route) },
+                onNavigateToQR = { navController.navigate(Screen.QR.route) }
             )
         }
 
@@ -35,6 +37,10 @@ fun AppNavGraph(navController: NavHostController) {
 //            CouponsScreen(onCouponClick = { couponId ->
 //                navController.navigate(Screen.CouponDetails.createRoute(couponId))
 //            })
+        }
+
+        composable(Screen.QR.route) {
+            QRCodeScreen(popBack = {navController.popBackStack()})
         }
 
         composable(

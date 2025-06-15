@@ -54,6 +54,9 @@ android {
 
 dependencies {
 
+    implementation("com.google.zxing:core:3.5.2")
+
+
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
 
