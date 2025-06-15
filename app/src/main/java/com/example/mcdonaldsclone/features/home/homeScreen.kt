@@ -2,6 +2,7 @@ package com.example.mcdonaldsclone.features.home
 
 import android.R.attr.subtitle
 import android.annotation.SuppressLint
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -52,46 +53,7 @@ import com.example.mcdonaldsclone.app.SmallCard
 import com.example.mcdonaldsclone.core.database.fakeData.FakeDataProvider
 import com.example.mcdonaldsclone.core.database.model.Category
 
-data class Promo(
-    val id: Int,
-    val title: String,
-    val subtitle: String,
-    val imageColor: Color,
-    val textColor: Color,
-    val textBackgroundColor: Color
-)
 
-object FakePromo{
-    val promos = listOf(
-        Promo(1,
-            "Nowe McFlurry Pistacjowe.",
-            "Spróbuj i poczuj, o co to zamieszanie!",
-            Color(0xFF7ed341),
-            Color(0xFF000000),
-            Color(0xFFb0780a)),
-        Promo(2,
-            "Kiedy masz smaka na Maka...",
-            "...zamów McRoyal Cheesy Jalapeno Bacon z serowym sosem Smoky Cheddar i papryczkamy jalapeno!",
-            Color(0xFF4A9123),
-            Color(0xFFFFFFFF),
-            Color(0xFF7A694A)
-        ),
-        Promo(3,
-            "Odkryj nową Kokosową Iced Latte!",
-            "Spróbuj też z bitą śmietanką",
-            Color(0xFF85EAB9),
-            Color(0xFF000000),
-            Color(0xFFD0B783)
-        ),
-        Promo(4,
-            "Dodatkową superopcją w Super Combo!",
-            "McNuggets polecają się do Twojego superzestawu!",
-            Color(0xFF0C540D),
-            Color(0xFFFFFFFF),
-            Color(0xFF317332)
-        ),
-    )
-}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -178,14 +140,14 @@ fun HomeScreen(
                 }
             }
 
-            FakePromo.promos.forEach { promo ->
+            FakeDataProvider.promos.forEach { promo ->
                 item{
                     PromoTextCard(
                         title = promo.title,
                         subtitle = promo.subtitle,
                         titleColor = promo.textColor,
                         textBackgroundColor = promo.textBackgroundColor,
-                        imageColor = promo.imageColor
+                        image = promo.imageResId
                     )
                 }
             }
@@ -194,92 +156,3 @@ fun HomeScreen(
     }
 }
 
-@Composable
-fun PromoTextCard(
-    title: String,
-    subtitle: String,
-    titleColor: Color = Color.White,
-    textBackgroundColor: Color = Color.Black,
-    imageColor: Color,
-    modifier: Modifier = Modifier,
-    onClick: () -> Unit = {}
-) {
-    var titleYInRoot by remember { mutableStateOf(0f) }
-    var cardYInRoot by remember { mutableStateOf(0f) }
-    var textHeightPx by remember { mutableStateOf(0) }
-
-    val density = LocalDensity.current
-    val shape = RoundedCornerShape(16.dp)
-
-    // wysokość karty = wysokość Column + 200.dp
-    val cardHeightDp by remember {
-        derivedStateOf {
-            with(density) { textHeightPx.toDp() + 200.dp }
-        }
-    }
-
-    Card(
-        modifier = modifier
-            .fillMaxWidth()
-            .height(cardHeightDp)
-            .padding(24.dp)
-            .clickable { onClick() }
-            .onGloballyPositioned { cardCoords ->
-                cardYInRoot = cardCoords.positionInRoot().y
-            },
-        shape = shape,
-        elevation = CardDefaults.cardElevation(8.dp)
-    ) {
-        Box(modifier = Modifier.clip(shape)) {
-            // Background "image"
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(imageColor)
-            )
-
-            // Gradient
-            val titleYRelative = titleYInRoot - cardYInRoot
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(
-                        Brush.verticalGradient(
-                            colors = listOf(
-                                Color.Transparent,
-                                textBackgroundColor.copy(alpha = 0.9f)
-                            ),
-                            startY = titleYRelative + 70f,
-                            endY = titleYRelative + 150f
-                        )
-                    )
-            )
-
-            // Text block
-            Column(
-                modifier = Modifier
-                    .align(Alignment.BottomStart)
-                    .fillMaxWidth()
-                    .padding(16.dp)
-                    .onGloballyPositioned { coords ->
-                        textHeightPx = coords.size.height
-                    }
-            ) {
-                Text(
-                    text = title,
-                    color = titleColor,
-                    style = MaterialTheme.typography.titleMedium,
-                    modifier = Modifier.onGloballyPositioned { coords ->
-                        titleYInRoot = coords.positionInRoot().y
-                    }
-                )
-                Spacer(modifier = Modifier.height(4.dp))
-                Text(
-                    text = subtitle,
-                    color = titleColor,
-                    style = MaterialTheme.typography.titleSmall
-                )
-            }
-        }
-    }
-}
