@@ -1,6 +1,7 @@
 package com.example.mcdonaldsclone.core.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -15,13 +16,20 @@ import com.example.mcdonaldsclone.features.mojeM.MojeMScreen
 
 @Composable
 fun AppNavGraph(navController: NavHostController) {
-    NavHost(navController, startDestination = Screen.Home.route) {
+    NavHost(
+        navController,
+        startDestination = Screen.Home.route,
+        route = "cart_nav_graph" // do jedengo view model
+    ) {
         composable(Screen.Home.route) {
             HomeScreen(
                 onNavigateToCoupons = { navController.navigate(Screen.MojeM.route) },
                 onNavigateToQR = { navController.navigate(Screen.QR.route) }
             )
         }
+
+        //wpieprzyć to w 2+ composable
+//        val cartViewModel: CartViewModel = hiltViewModel(navController.getBackStackEntry("cart_nav_graph"))
 
         composable(Screen.MojeM.route) {
             MojeMScreen(

@@ -1,25 +1,30 @@
 package com.example.mcdonaldsclone.core.database.fakeData
 
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import com.example.mcdonaldsclone.R
-import com.example.mcdonaldsclone.core.database.model.CartItem
 import com.example.mcdonaldsclone.core.database.model.Category
 import com.example.mcdonaldsclone.core.database.model.Coupon
 import com.example.mcdonaldsclone.core.database.model.LoyaltyItem
 import com.example.mcdonaldsclone.core.database.model.LoyaltyPoints
-import com.example.mcdonaldsclone.core.database.model.Product
+import com.example.mcdonaldsclone.features.menu.model.Product
 import com.example.mcdonaldsclone.core.database.model.Promo
+import com.example.mcdonaldsclone.features.menu.model.Sauce
+import com.example.mcdonaldsclone.core.database.model.SubCategory
 import com.example.mcdonaldsclone.core.database.model.UserSettings
+import com.example.mcdonaldsclone.features.menu.model.ZestawOption
 import kotlin.collections.listOf
 
 object FakeDataProvider {
 
+    val subCategory = listOf(
+        SubCategory(1, "Wołowina"),
+        SubCategory(2, "Kurczak")
+    )
+
     val categories = listOf(
-        Category(1, "Zestawy"),
+        Category(1, "Super Combo"),
         Category(2, "Burgery"),
-        Category(3, "Napoje"),
-        Category(4, "Desery")
+        Category(3, "Kurczak")
     )
 
     val products = listOf(
@@ -29,34 +34,65 @@ object FakeDataProvider {
             "Klasyczny burger z wołowiną",
             "https://example.com/bigmac.jpg",
             18.99,
-            2
-        ),
-        Product(
             2,
-            "McZestaw",
-            "Zestaw z Big Mac, frytki i napój",
-            "https://example.com/zestaw.jpg",
-            29.99,
+            true,
             1
         ),
         Product(
+            2,
+            "McChicken",
+            "Zestaw z Big Mac, frytki i napój",
+            "https://example.com/zestaw.jpg",
+            29.99,
+            2,
+            true,
+            2
+        ),
+        Product(
             3,
-            "McFlurry Oreo",
+            "2 x burger albo 4 McNuggets i burger + śr. frytki + śr. napó",
             "Deser lodowy z Oreo",
             "https://example.com/mcflurry.jpg",
             9.99,
-            4
+            1,
+            true,
+            null
         ),
-        Product(4, "Coca-Cola", "Napój gazowany 0.5L", "https://example.com/coke.jpg", 6.50, 3),
+        Product(4,
+            "9 McNuggets",
+            "costam",
+            "https://example.com/coke.jpg",
+            6.50,
+            3,
+            true,
+            2
+        ),
         Product(
             5,
-            "Cheeseburger",
-            "Burger z serem",
+            "20 McNuggets",
+            "costam",
             "https://example.com/cheeseburger.jpg",
             7.99,
+            3,
+            true,
             2
         )
     )
+
+    val zestawOptions = listOf(
+        ZestawOption(1, "Zestaw", 10F),
+        ZestawOption(2, "Zestaw Powiększony", 13F)
+    )
+
+    val sauces = listOf(
+        Sauce(1, "Sos Nether Flame", spiceLevel = 3),
+        Sauce(2, "Sriracha Mayo", spiceLevel = 2),
+        Sauce(3, "Sos Czosnkowy"),
+        Sauce(4, "Sos Słodko-Kwaśny"),
+        Sauce(5, "Sos Śmietanowy"),
+        Sauce(6, "Sos Barbeque")
+    )
+
 
     val coupons = listOf(
         Coupon(
@@ -129,12 +165,6 @@ object FakeDataProvider {
         LoyaltyItem(id = 5, title = "McRoyal", R.drawable.kupon2, points = 2950),
         LoyaltyItem(id = 6, title = "Małe frytki", R.drawable.kupon3, points = 750),
         LoyaltyItem(id = 7, title = "Mały napój", R.drawable.kupon4, points = 700)
-    )
-
-
-    val cartItems = listOf(
-        CartItem(1, productId = 1, quantity = 2),
-        CartItem(2, productId = 4, quantity = 1)
     )
 
     val loyaltyPoints = LoyaltyPoints(currentPoints = 150)
