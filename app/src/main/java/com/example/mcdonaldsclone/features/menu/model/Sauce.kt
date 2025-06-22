@@ -1,7 +1,11 @@
 package com.example.mcdonaldsclone.features.menu.model
 
+import androidx.annotation.DrawableRes
+
 data class Sauce(
     val id: Long,
     val name: String,
-    val spiceLevel: Int = 0
+    @DrawableRes val imageResId: Int,
+    val price: Double,
+    val spiceLevel: Int = 0,
 )

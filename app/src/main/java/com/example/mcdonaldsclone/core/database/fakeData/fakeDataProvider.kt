@@ -11,6 +11,8 @@ import com.example.mcdonaldsclone.core.database.model.Promo
 import com.example.mcdonaldsclone.features.menu.model.Sauce
 import com.example.mcdonaldsclone.core.database.model.SubCategory
 import com.example.mcdonaldsclone.core.database.model.UserSettings
+import com.example.mcdonaldsclone.features.cart.composables.CategoryDetailsContent
+import com.example.mcdonaldsclone.features.menu.model.Drinks
 import com.example.mcdonaldsclone.features.menu.model.ZestawOption
 import kotlin.collections.listOf
 
@@ -24,7 +26,9 @@ object FakeDataProvider {
     val categories = listOf(
         Category(1, "Super Combo"),
         Category(2, "Burgery"),
-        Category(3, "Kurczak")
+        Category(3, "Kurczak"),
+        Category(4, "Napoje zimne"),
+        Category(5, "Woda")
     )
 
     val products = listOf(
@@ -32,7 +36,7 @@ object FakeDataProvider {
             1,
             "Big Mac",
             "Klasyczny burger z wołowiną",
-            "https://example.com/bigmac.jpg",
+            R.drawable.kupon,
             18.99,
             2,
             true,
@@ -42,7 +46,7 @@ object FakeDataProvider {
             2,
             "McChicken",
             "Zestaw z Big Mac, frytki i napój",
-            "https://example.com/zestaw.jpg",
+            R.drawable.kupon,
             29.99,
             2,
             true,
@@ -52,7 +56,7 @@ object FakeDataProvider {
             3,
             "2 x burger albo 4 McNuggets i burger + śr. frytki + śr. napó",
             "Deser lodowy z Oreo",
-            "https://example.com/mcflurry.jpg",
+            R.drawable.kupon,
             9.99,
             1,
             true,
@@ -61,7 +65,7 @@ object FakeDataProvider {
         Product(4,
             "9 McNuggets",
             "costam",
-            "https://example.com/coke.jpg",
+            R.drawable.kupon,
             6.50,
             3,
             true,
@@ -71,7 +75,7 @@ object FakeDataProvider {
             5,
             "20 McNuggets",
             "costam",
-            "https://example.com/cheeseburger.jpg",
+            R.drawable.kupon,
             7.99,
             3,
             true,
@@ -84,13 +88,21 @@ object FakeDataProvider {
         ZestawOption(2, "Zestaw Powiększony", 13F)
     )
 
+    val drinks = listOf(
+        Drinks(1, "Coca-Cola", R.drawable.kupon4, 8.10, 11.10, 12.10, 4),
+        Drinks(2, "Coca-Cola Zero", R.drawable.kupon4, 8.10, 11.10, 12.10, 4),
+        Drinks(3, "Sprite", R.drawable.kupon4, 8.10, 11.10, 12.10, 4),
+        Drinks(4, "Fanta", R.drawable.kupon4, 8.10, 11.10, 12.10, 4),
+        Drinks(5, "Ice Tea", R.drawable.kupon4, 8.10, 11.10, 12.10, 4),
+    )
+
     val sauces = listOf(
-        Sauce(1, "Sos Nether Flame", spiceLevel = 3),
-        Sauce(2, "Sriracha Mayo", spiceLevel = 2),
-        Sauce(3, "Sos Czosnkowy"),
-        Sauce(4, "Sos Słodko-Kwaśny"),
-        Sauce(5, "Sos Śmietanowy"),
-        Sauce(6, "Sos Barbeque")
+        Sauce(1, "Sriracha Mayo", R.drawable.kupon7, 1.90, spiceLevel = 2),
+        Sauce(2, "Ketchup Płatny", R.drawable.kupon7, 1.50),
+        Sauce(3, "Sos Czosnkowy", R.drawable.kupon7, 1.90),
+        Sauce(4, "Sos Śmietanowy", R.drawable.kupon7, 1.90),
+        Sauce(5, "Sos Barbeque", R.drawable.kupon7, 1.90),
+        Sauce(6, "Sos Słodko-Kwaśny", R.drawable.kupon7, 1.90)
     )
 
 
