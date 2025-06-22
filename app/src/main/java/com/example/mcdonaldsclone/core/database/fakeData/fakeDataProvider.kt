@@ -20,80 +20,45 @@ object FakeDataProvider {
 
     val subCategory = listOf(
         SubCategory(1, "Wołowina"),
-        SubCategory(2, "Kurczak")
+        SubCategory(2, "Kurczak"),
+        SubCategory(5, "Wege"),
+        SubCategory(3, "Napoje zimne"),
+        SubCategory(4, "Woda"),
+
     )
 
     val categories = listOf(
         Category(1, "Super Combo"),
         Category(2, "Burgery"),
         Category(3, "Kurczak"),
-        Category(4, "Napoje zimne"),
-        Category(5, "Woda")
+        Category(4, "Napoje")
     )
 
     val products = listOf(
-        Product(
-            1,
-            "Big Mac",
-            "Klasyczny burger z wołowiną",
-            R.drawable.kupon,
-            18.99,
-            2,
-            true,
-            1
-        ),
-        Product(
-            2,
-            "McChicken",
-            "Zestaw z Big Mac, frytki i napój",
-            R.drawable.kupon,
-            29.99,
-            2,
-            true,
-            2
-        ),
-        Product(
-            3,
-            "2 x burger albo 4 McNuggets i burger + śr. frytki + śr. napó",
-            "Deser lodowy z Oreo",
-            R.drawable.kupon,
-            9.99,
-            1,
-            true,
-            null
-        ),
-        Product(4,
-            "9 McNuggets",
-            "costam",
-            R.drawable.kupon,
-            6.50,
-            3,
-            true,
-            2
-        ),
-        Product(
-            5,
-            "20 McNuggets",
-            "costam",
-            R.drawable.kupon,
-            7.99,
-            3,
-            true,
-            2
-        )
-    )
+        Product(1, "Big Mac", R.drawable.kupon, 21.30, 2, 1, true, 30.50),
+        Product(2, "McRoyal", R.drawable.kupon, 20.60, 2, 1, true, 30.30),
+        Product(3, "McRoyal Podwójny", R.drawable.kupon, 26.30, 2, 1, true, 35.50),
+        Product(4, "WieśMac Podwójny", R.drawable.kupon, 26.30, 2, 1, true, 35.50),
+        Product(5, "WieśMac", R.drawable.kupon, 20.60, 2, 1, true, 30.30),
+        Product(6, "McDouble", R.drawable.kupon, 9.90, 2, 1, false),
+        Product(7, "Cheeseburger", R.drawable.kupon, 7.50, 2, 1, false),
+        Product(8, "Hamburger", R.drawable.kupon, 6.90, 2, 1, false),
+        Product(9, "Jalapeno Burger", R.drawable.kupon, 7.50, 2, 1, false),
+        Product(9, "McChicken", R.drawable.kupon, 19.20, 2, 2, true, 28.70),
+        Product(9, "Chikker", R.drawable.kupon, 7.40, 2, 2, false),
+        Product(9, "Red Chikker", R.drawable.kupon, 7.40, 2, 2, false),
+        Product(9, "Veggie Burger", R.drawable.kupon, 20.60, 2, 5, true, 30.90),
 
-    val zestawOptions = listOf(
-        ZestawOption(1, "Zestaw", 10F),
-        ZestawOption(2, "Zestaw Powiększony", 13F)
     )
 
     val drinks = listOf(
-        Drinks(1, "Coca-Cola", R.drawable.kupon4, 8.10, 11.10, 12.10, 4),
-        Drinks(2, "Coca-Cola Zero", R.drawable.kupon4, 8.10, 11.10, 12.10, 4),
-        Drinks(3, "Sprite", R.drawable.kupon4, 8.10, 11.10, 12.10, 4),
-        Drinks(4, "Fanta", R.drawable.kupon4, 8.10, 11.10, 12.10, 4),
-        Drinks(5, "Ice Tea", R.drawable.kupon4, 8.10, 11.10, 12.10, 4),
+        Drinks(1, "Coca-Cola", R.drawable.kupon4, 8.10, 11.10, 12.10, true, 4, 3),
+        Drinks(2, "Coca-Cola Zero", R.drawable.kupon4, 8.10, 11.10, 12.10, true, 4, 3),
+        Drinks(3, "Sprite", R.drawable.kupon4, 8.10, 11.10, 12.10, true, 4, 3),
+        Drinks(4, "Fanta", R.drawable.kupon4, 8.10, 11.10, 12.10, true, 4, 3),
+        Drinks(5, "Ice Tea", R.drawable.kupon4, 8.10, 11.10, 12.10, true, 4, 3),
+        Drinks(6, "Woda Gazowana", R.drawable.kupon4, 8.00, 8.00, 8.00, false, 4, 4),
+        Drinks(7, "Woda Niegazowana", R.drawable.kupon4, 8.00, 8.00, 8.00, false, 4, 4),
     )
 
     val sauces = listOf(
@@ -105,6 +70,10 @@ object FakeDataProvider {
         Sauce(6, "Sos Słodko-Kwaśny", R.drawable.kupon7, 1.90)
     )
 
+    val zestawOptions = listOf(
+        ZestawOption(1, "Zestaw", 10F),
+        ZestawOption(2, "Zestaw Powiększony", 13F)
+    )
 
     val coupons = listOf(
         Coupon(

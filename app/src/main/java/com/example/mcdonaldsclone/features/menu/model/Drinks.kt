@@ -10,5 +10,7 @@ data class Drinks(
     val priceSmall: Double,
     val priceMedium: Double,
     val priceLarge: Double,
-    val categoryId: Long
+    val isSizeChagable: Boolean,
+    val categoryId: Long,
+    val subCategoryId: Long
 )
