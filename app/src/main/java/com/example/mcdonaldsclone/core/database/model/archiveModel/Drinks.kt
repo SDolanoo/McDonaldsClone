@@ -1,7 +1,6 @@
-package com.example.mcdonaldsclone.features.menu.model
+package com.example.mcdonaldsclone.core.database.model.archiveModel
 
 import androidx.annotation.DrawableRes
-import com.example.mcdonaldsclone.core.database.model.Category
 
 data class Drinks(
     val id: Long,

@@ -24,7 +24,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.mcdonaldsclone.R
 import com.example.mcdonaldsclone.core.database.fakeData.FakeDataProvider
-import com.example.mcdonaldsclone.features.menu.model.Product
+import com.example.mcdonaldsclone.core.database.model.MenuItem
+import com.example.mcdonaldsclone.core.database.model.archiveModel.Product
 
 @Composable
 fun CategoryDetailsContent(
@@ -32,7 +33,7 @@ fun CategoryDetailsContent(
     categoryId: Long,
     moveToProductContent: (Long) -> Unit
 ) {
-    val listProduct: List<Product> = FakeDataProvider.products.filter { it.categoryId == categoryId.toInt() }
+    val listProduct: List<MenuItem> = FakeDataProvider.menuItems.filter { it.categoryId == categoryId }
     LazyVerticalStaggeredGrid(
         columns = StaggeredGridCells.Fixed(1),
         modifier = Modifier.fillMaxSize(),

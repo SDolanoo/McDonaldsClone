@@ -32,7 +32,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.mcdonaldsclone.R
 import com.example.mcdonaldsclone.core.database.fakeData.FakeDataProvider
-import com.example.mcdonaldsclone.features.menu.model.Sauce
+import com.example.mcdonaldsclone.core.database.model.MenuItem
+import com.example.mcdonaldsclone.core.database.model.archiveModel.Sauce
 
 @Composable
 fun ProductWithExtrasContent(
@@ -85,13 +86,13 @@ fun ProductWithExtrasContent(
             )
         }
 
-        items(FakeDataProvider.sauces) { sauce ->
+        items(FakeDataProvider.menuItems.filter { it.subCategoryId == 10L /* 10 == sosy*/ }) { sauce ->
             SauceItem(sauce)
         }
     }
 }
 @Composable
-private fun SauceItem(sauce: Sauce) {
+private fun SauceItem(sauce: MenuItem) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -100,7 +101,7 @@ private fun SauceItem(sauce: Sauce) {
         verticalAlignment = Alignment.CenterVertically
     ) {
         // Spice Level Indicator
-        if (sauce.spiceLevel > 0) {
+        if (sauce.spiceLevel!! > 0) {
             Row(Modifier.padding(end = 8.dp)) {
                 repeat(sauce.spiceLevel) {
                     Text("🌶", fontSize = 14.sp)

@@ -33,7 +33,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.mcdonaldsclone.R
 import com.example.mcdonaldsclone.core.database.fakeData.FakeDataProvider
-import com.example.mcdonaldsclone.features.menu.model.Product
+import com.example.mcdonaldsclone.core.database.model.MenuItem
+import com.example.mcdonaldsclone.core.database.model.archiveModel.Product
 
 @Composable
 fun ProductDetailsContent(
@@ -41,7 +42,7 @@ fun ProductDetailsContent(
     productId: Long,
 
     ) {
-    val product: Product? = FakeDataProvider.products.find { it.id == productId }
+    val product: MenuItem? = FakeDataProvider.menuItems.find { it.id == productId }
     var quantity by remember { mutableIntStateOf(1) }
 
     LazyColumn(
@@ -64,7 +65,7 @@ fun ProductDetailsContent(
 
             item {
                 Text(
-                    text = "%.2f zł".format(it.price),
+                    text = "%.2f zł".format(it.basePrice),
                     style = MaterialTheme.typography.bodyLarge,
                     fontWeight = FontWeight.SemiBold,
                     color = Color.Gray

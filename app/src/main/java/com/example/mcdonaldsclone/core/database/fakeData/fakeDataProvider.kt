@@ -6,14 +6,15 @@ import com.example.mcdonaldsclone.core.database.model.Category
 import com.example.mcdonaldsclone.core.database.model.Coupon
 import com.example.mcdonaldsclone.core.database.model.LoyaltyItem
 import com.example.mcdonaldsclone.core.database.model.LoyaltyPoints
-import com.example.mcdonaldsclone.features.menu.model.Product
+import com.example.mcdonaldsclone.core.database.model.MenuItem
+import com.example.mcdonaldsclone.core.database.model.archiveModel.Product
 import com.example.mcdonaldsclone.core.database.model.Promo
-import com.example.mcdonaldsclone.features.menu.model.Sauce
+import com.example.mcdonaldsclone.core.database.model.archiveModel.Sauce
 import com.example.mcdonaldsclone.core.database.model.SubCategory
 import com.example.mcdonaldsclone.core.database.model.UserSettings
 import com.example.mcdonaldsclone.features.cart.composables.CategoryDetailsContent
-import com.example.mcdonaldsclone.features.menu.model.Drinks
-import com.example.mcdonaldsclone.features.menu.model.ZestawOption
+import com.example.mcdonaldsclone.core.database.model.archiveModel.Drinks
+import com.example.mcdonaldsclone.core.database.model.archiveModel.ZestawOption
 import kotlin.collections.listOf
 
 object FakeDataProvider {
@@ -41,54 +42,53 @@ object FakeDataProvider {
         Category(6, "Frytki i dodatki")
     )
 
-    val products = listOf(
-        Product(1, "Big Mac", R.drawable.kupon, 21.30, 2, 1, true, 30.50),
-        Product(2, "McRoyal", R.drawable.kupon, 20.60, 2, 1, true, 30.30),
-        Product(3, "McRoyal Podwójny", R.drawable.kupon, 26.30, 2, 1, true, 35.50),
-        Product(4, "WieśMac Podwójny", R.drawable.kupon, 26.30, 2, 1, true, 35.50),
-        Product(5, "WieśMac", R.drawable.kupon, 20.60, 2, 1, true, 30.30),
-        Product(6, "McDouble", R.drawable.kupon, 9.90, 2, 1, false),
-        Product(7, "Cheeseburger", R.drawable.kupon, 7.50, 2, 1, false),
-        Product(8, "Hamburger", R.drawable.kupon, 6.90, 2, 1, false),
-        Product(9, "Jalapeno Burger", R.drawable.kupon, 7.50, 2, 1, false),
-        Product(10, "McChicken", R.drawable.kupon, 19.20, 2, 2, true, 28.70),
-        Product(11, "Chikker", R.drawable.kupon, 7.40, 2, 2, false),
-        Product(12, "Red Chikker", R.drawable.kupon, 7.40, 2, 2, false),
-        Product(13, "Veggie Burger", R.drawable.kupon, 20.60, 2, 5, true, 30.90),
-        Product(14, "McWrap Chrupiący Klasyczny", R.drawable.kupon, 22.20, 5, 6, true, 33.10),
-        Product(15, "McWrap Chrupiący Bekon Deluxe", R.drawable.kupon, 22.70, 5, 6, true, 33.70),
-        Product(16, "Sałatka Kurczak Premium", R.drawable.kupon, 23.90, 5, 7, false),
-        Product(17, "Sałatka", R.drawable.kupon, 9.90, 5, 7, false),
-        Product(18, "9 McNuggets", R.drawable.kupon, 21.50, 3, 8, false),
-        Product(19, "Chicken Tenders 5 szt.", R.drawable.kupon, 23.90, 3, 8, false),
-        Product(20, "6 McNuggets", R.drawable.kupon, 19.30, 3, 8, true, 28.90),
-        Product(21, "20 McNuggets", R.drawable.kupon, 33.50, 3, 8, false),
-        Product(22, "Chicken Tenders 3 szt.s", R.drawable.kupon, 18.90, 3, 8, true, 28.90),
+    val menuItems = listOf(
 
-    )
+        // === Products ===
+        MenuItem(1, "Big Mac", R.drawable.kupon, 2, 1, 21.30, isSetAvailable = true, setPrice = 30.50),
+        MenuItem(2, "McRoyal", R.drawable.kupon, 2, 1, 20.60, isSetAvailable = true, setPrice = 30.30),
+        MenuItem(3, "McRoyal Podwójny", R.drawable.kupon, 2, 1, 26.30, isSetAvailable = true, setPrice = 35.50),
+        MenuItem(4, "WieśMac Podwójny", R.drawable.kupon, 2, 1, 26.30, isSetAvailable = true, setPrice = 35.50),
+        MenuItem(5, "WieśMac", R.drawable.kupon, 2, 1, 20.60, isSetAvailable = true, setPrice = 30.30),
+        MenuItem(6, "McDouble", R.drawable.kupon, 2, 1, 9.90),
+        MenuItem(7, "Cheeseburger", R.drawable.kupon, 2, 1, 7.50),
+        MenuItem(8, "Hamburger", R.drawable.kupon, 2, 1, 6.90),
+        MenuItem(9, "Jalapeno Burger", R.drawable.kupon, 2, 1, 7.50),
+        MenuItem(10, "McChicken", R.drawable.kupon, 2, 2, 19.20, isSetAvailable = true, setPrice = 28.70),
+        MenuItem(11, "Chikker", R.drawable.kupon, 2, 2, 7.40),
+        MenuItem(12, "Red Chikker", R.drawable.kupon, 2, 2, 7.40),
+        MenuItem(13, "Veggie Burger", R.drawable.kupon, 2, 5, 20.60, isSetAvailable = true, setPrice = 30.90),
+        MenuItem(14, "McWrap Chrupiący Klasyczny", R.drawable.kupon, 5, 6, 22.20, isSetAvailable = true, setPrice = 33.10),
+        MenuItem(15, "McWrap Chrupiący Bekon Deluxe", R.drawable.kupon, 5, 6, 22.70, isSetAvailable = true, setPrice = 33.70),
+        MenuItem(16, "Sałatka Kurczak Premium", R.drawable.kupon, 5, 7, 23.90),
+        MenuItem(17, "Sałatka", R.drawable.kupon, 5, 7, 9.90),
+        MenuItem(18, "9 McNuggets", R.drawable.kupon, 3, 8, 21.50),
+        MenuItem(19, "Chicken Tenders 5 szt.", R.drawable.kupon, 3, 8, 23.90),
+        MenuItem(20, "6 McNuggets", R.drawable.kupon, 3, 8, 19.30, isSetAvailable = true, setPrice = 28.90),
+        MenuItem(21, "20 McNuggets", R.drawable.kupon, 3, 8, 33.50),
+        MenuItem(22, "Chicken Tenders 3 szt.s", R.drawable.kupon, 3, 8, 18.90, isSetAvailable = true, setPrice = 28.90),
 
-    val drinks = listOf(
-        Drinks(1, "Coca-Cola", R.drawable.kupon4, 8.10, 11.10, 12.10, true, 4, 3),
-        Drinks(2, "Coca-Cola Zero", R.drawable.kupon4, 8.10, 11.10, 12.10, true, 4, 3),
-        Drinks(3, "Sprite", R.drawable.kupon4, 8.10, 11.10, 12.10, true, 4, 3),
-        Drinks(4, "Fanta", R.drawable.kupon4, 8.10, 11.10, 12.10, true, 4, 3),
-        Drinks(5, "Ice Tea", R.drawable.kupon4, 8.10, 11.10, 12.10, true, 4, 3),
-        Drinks(6, "Woda Gazowana", R.drawable.kupon4, 8.00, 8.00, 8.00, false, 4, 4),
-        Drinks(7, "Woda Niegazowana", R.drawable.kupon4, 8.00, 8.00, 8.00, false, 4, 4),
-        Drinks(8, "Frytki", , R.drawable.kupon4, 9.00, 9.80, 10.00, true, 6, 9)
-    )
+        // === Drinks ===
+        MenuItem(101, "Coca-Cola", R.drawable.kupon4, 4, 3, 8.10, isSizeChangable = true, priceMedium = 11.10, priceLarge = 12.10),
+        MenuItem(102, "Coca-Cola Zero", R.drawable.kupon4, 4, 3, 8.10, isSizeChangable = true, priceMedium = 11.10, priceLarge = 12.10),
+        MenuItem(103, "Sprite", R.drawable.kupon4, 4, 3, 8.10, isSizeChangable = true, priceMedium = 11.10, priceLarge = 12.10),
+        MenuItem(104, "Fanta", R.drawable.kupon4, 4, 3, 8.10, isSizeChangable = true, priceMedium = 11.10, priceLarge = 12.10),
+        MenuItem(105, "Ice Tea", R.drawable.kupon4, 4, 3, 8.10, isSizeChangable = true, priceMedium = 11.10, priceLarge = 12.10),
+        MenuItem(106, "Woda Gazowana", R.drawable.kupon4, 4, 4, 8.00, isSizeChangable = false, priceMedium = 8.00, priceLarge = 8.00),
+        MenuItem(107, "Woda Niegazowana", R.drawable.kupon4, 4, 4, 8.00, isSizeChangable = false, priceMedium = 8.00, priceLarge = 8.00),
+        MenuItem(108, "Frytki", R.drawable.kupon4, 6, 9, 9.00, isSizeChangable = true, priceMedium = 9.80, priceLarge = 10.00),
 
-    val friesAndsSauces = listOf(
-        Sauce(1, "Sriracha Mayo", R.drawable.kupon7, 1.90, 6, 10,  spiceLevel = 2),
-        Sauce(2, "Ketchup Płatny", R.drawable.kupon7, 1.50, 6, 10),
-        Sauce(3, "Sos Czosnkowy", R.drawable.kupon7, 1.90, 6, 10),
-        Sauce(4, "Sos Śmietanowy", R.drawable.kupon7, 1.90, 6, 10),
-        Sauce(5, "Sos Barbeque", R.drawable.kupon7, 1.90, 6, 10),
-        Sauce(6, "Sos Słodko-Kwaśny", R.drawable.kupon7, 1.90, 6, 10),
-        Sauce(7, "Sos Vinegret", R.drawable.kupon7, 1.90, 6, 11),
-        Sauce(8, "Sos 1000 Wysp", R.drawable.kupon7, 1.90, 6, 11),
-        Sauce(9, "Sos Oliwa z Oliwek", R.drawable.kupon7, 1.90, 6, 11),
-        Sauce(10, "Sos Koperkowy", R.drawable.kupon7, 1.90, 6, 11),
+        // === Sauces ===
+        MenuItem(201, "Sriracha Mayo", R.drawable.kupon7, 6, 10, 1.90, spiceLevel = 2),
+        MenuItem(202, "Ketchup Płatny", R.drawable.kupon7, 6, 10, 1.50),
+        MenuItem(203, "Sos Czosnkowy", R.drawable.kupon7, 6, 10, 1.90),
+        MenuItem(204, "Sos Śmietanowy", R.drawable.kupon7, 6, 10, 1.90),
+        MenuItem(205, "Sos Barbeque", R.drawable.kupon7, 6, 10, 1.90),
+        MenuItem(206, "Sos Słodko-Kwaśny", R.drawable.kupon7, 6, 10, 1.90),
+        MenuItem(207, "Sos Vinegret", R.drawable.kupon7, 6, 11, 1.90),
+        MenuItem(208, "Sos 1000 Wysp", R.drawable.kupon7, 6, 11, 1.90),
+        MenuItem(209, "Sos Oliwa z Oliwek", R.drawable.kupon7, 6, 11, 1.90),
+        MenuItem(210, "Sos Koperkowy", R.drawable.kupon7, 6, 11, 1.90),
     )
 
     val zestawOptions = listOf(

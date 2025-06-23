@@ -36,7 +36,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.mcdonaldsclone.R
-import com.example.mcdonaldsclone.features.menu.model.ZestawOption
+import com.example.mcdonaldsclone.core.database.model.archiveModel.ZestawOption
 
 @Composable
 fun ChooseZestawContent(

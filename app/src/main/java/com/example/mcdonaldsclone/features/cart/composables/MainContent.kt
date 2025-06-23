@@ -25,7 +25,8 @@ import androidx.compose.ui.unit.dp
 import com.example.mcdonaldsclone.R
 import com.example.mcdonaldsclone.core.database.fakeData.FakeDataProvider
 import com.example.mcdonaldsclone.core.database.model.Category
-import com.example.mcdonaldsclone.features.menu.model.Product
+import com.example.mcdonaldsclone.core.database.model.MenuItem
+import com.example.mcdonaldsclone.core.database.model.archiveModel.Product
 
 @Composable
 fun MainContent(
@@ -33,7 +34,7 @@ fun MainContent(
     moveToCategoryDetails: (Long) -> Unit
 ) {
     val listaKategorii: List<Category> = FakeDataProvider.categories
-    val products: List<Product> = FakeDataProvider.products
+    val products: List<MenuItem> = FakeDataProvider.menuItems
     LazyVerticalStaggeredGrid(
         columns = StaggeredGridCells.Fixed(1),
         modifier = Modifier.fillMaxSize(),
@@ -71,7 +72,7 @@ fun MainContent(
                 )
             }
             item {
-                if (category.id == listaKategorii.size - 1) {
+                if (category.id.toInt()== listaKategorii.size - 1) {
                     Spacer(modifier = Modifier.height(10.dp))
                 }
             }

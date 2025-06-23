@@ -12,7 +12,7 @@ sealed class Screen(val route: String) {
         fun createRoute(productId: String) = "menu/$productId"
     }
 
-    object Cart : Screen("cart")
+    object ZamowIOdbierz : Screen("zamowIOdbierz")
     object Loyalty : Screen("loyalty")
     object LoyaltyDetails : Screen("loyalty/{loyaltyItemId}") {
         fun createRoute(loyaltyItemId: Long) = "loyalty/$loyaltyItemId"

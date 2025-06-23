@@ -1,4 +1,4 @@
-package com.example.mcdonaldsclone.features.menu.model
+package com.example.mcdonaldsclone.core.database.model.archiveModel
 
 data class ZestawOption(
     val id: Long,

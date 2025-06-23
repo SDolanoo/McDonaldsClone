@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.mcdonaldsclone.features.QRCode.QRCodeScreen
+import com.example.mcdonaldsclone.features.cart.view.ZamowIOdbierzScreen
 import com.example.mcdonaldsclone.features.coupons.CouponDetailsScreen
 import com.example.mcdonaldsclone.features.home.HomeScreen
 import com.example.mcdonaldsclone.features.loyalty.LoyaltyCardDetailsScreen
@@ -18,7 +19,7 @@ import com.example.mcdonaldsclone.features.mojeM.MojeMScreen
 fun AppNavGraph(navController: NavHostController) {
     NavHost(
         navController,
-        startDestination = Screen.Home.route,
+        startDestination = Screen.ZamowIOdbierz.route,
         route = "cart_nav_graph" // do jedengo view model
     ) {
         composable(Screen.Home.route) {
@@ -26,6 +27,10 @@ fun AppNavGraph(navController: NavHostController) {
                 onNavigateToCoupons = { navController.navigate(Screen.MojeM.route) },
                 onNavigateToQR = { navController.navigate(Screen.QR.route) }
             )
+        }
+
+        composable(Screen.ZamowIOdbierz.route) {
+            ZamowIOdbierzScreen()
         }
 
         //wpieprzyć to w 2+ composable
