@@ -1,13 +1,19 @@
 package com.example.mcdonaldsclone.features.cart.composables
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -74,7 +80,7 @@ fun ProductDetailsContent(
 
             item {
                 Image(
-                    painter = painterResource(id = R.drawable.ic_launcher_background), // Replace with real image
+                    painter = painterResource(id = it.imageResId), // Replace with real image
                     contentDescription = "Product Image",
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
@@ -85,19 +91,41 @@ fun ProductDetailsContent(
             }
 
             item {
-                QuantitySelector(
-                    quantity = quantity,
-                    onIncrease = { quantity++ },
-                    onDecrease = { if (quantity > 1) quantity-- }
-                )
+                Spacer(Modifier.height(3.dp))
             }
 
             item {
-                Button(
-                    onClick = { /* TODO: Navigate to details */ },
-                    modifier = Modifier.fillMaxWidth()
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentWidth(Alignment.CenterHorizontally)
                 ) {
-                    Text("Składniki i wartości odżywcze")
+                    QuantitySelector(
+                        quantity = quantity,
+                        onIncrease = { quantity++ },
+                        onDecrease = { if (quantity > 1) quantity-- }
+                    )
+                }
+            }
+
+
+            item {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentWidth(Alignment.CenterHorizontally)
+                ) {
+                    Button(
+                        onClick = { /* TODO: Navigate to details */ },
+                        modifier = Modifier
+                            .border(1.dp, Color.Gray, RoundedCornerShape(10))
+                            .clip(RoundedCornerShape(10))
+                            .height(60.dp)
+                            .background(Color.White)
+                            .padding(horizontal = 16.dp)
+                    ) {
+                        Text(text = "Składniki i wartości odżywcze", color = Color.Black)
+                    }
                 }
             }
         } ?: item {
@@ -119,20 +147,25 @@ private fun QuantitySelector(
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center,
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .border(1.dp, Color.Gray, RoundedCornerShape(50))
+            .clip(RoundedCornerShape(50))
+            .background(Color.White)
+            .padding(horizontal = 8.dp, vertical = 4.dp),
     ) {
         IconButton(onClick = onDecrease) {
-            Icon(Icons.Default.KeyboardArrowDown, contentDescription = "Zmniejsz ilość")
+            Icon(Icons.Default.KeyboardArrowDown, contentDescription = "Zmniejsz ilość", tint = Color.Gray)
         }
 
         Text(
             text = quantity.toString(),
             style = MaterialTheme.typography.titleMedium,
-            modifier = Modifier.padding(horizontal = 16.dp)
+            modifier = Modifier.padding(horizontal = 16.dp),
+            color = Color.Black
         )
 
         IconButton(onClick = onIncrease) {
-            Icon(Icons.Default.Add, contentDescription = "Zwiększ ilość")
+            Icon(Icons.Default.Add, contentDescription = "Zwiększ ilość", tint = Color.Black)
         }
     }
 }

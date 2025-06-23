@@ -52,7 +52,7 @@ fun CategoryDetailsContent(
                     modifier = Modifier.clickable {moveToProductContent(product.id)},
                     leadingContent = {
                         Image(
-                            painter = painterResource(id = R.drawable.ic_launcher_background), // Podmień na swoje źródło
+                            painter = painterResource(id = product.imageResId), // Podmień na swoje źródło
                             contentDescription = null,
                             contentScale = ContentScale.Crop,
                             modifier = Modifier
@@ -63,8 +63,15 @@ fun CategoryDetailsContent(
                     headlineContent = {
                         Text(
                             text = product.name,
-                            style = MaterialTheme.typography.titleLarge,
+                            style = MaterialTheme.typography.titleMedium,
                             fontWeight = FontWeight.Bold,
+                            color = Color.Black
+                        )
+                    },
+                    supportingContent = {
+                        Text(
+                            text = "%.2f zł".format(product.basePrice),
+                            style = MaterialTheme.typography.bodyMedium,
                             color = Color.Black
                         )
                     }

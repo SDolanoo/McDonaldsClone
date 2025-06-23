@@ -1,11 +1,13 @@
 package com.example.mcdonaldsclone.features.cart.composables
 
+import android.R.attr.category
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
@@ -20,6 +22,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.mcdonaldsclone.R
@@ -41,9 +44,22 @@ fun MainContent(
         contentPadding = innerPadding,
         verticalItemSpacing = 2.dp,
     ) {
+        item {
+            Text(
+                text = "Odkryj nasze menu",
+                style = MaterialTheme.typography.bodyMedium,
+                color = Color.Black,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(start = 24.dp, top = 24.dp)
+            )
+        }
+        item{
+            Spacer(Modifier.height(5.dp))
+        }
+
         listaKategorii.forEach { category ->
             item {
-                if (category.id > 1) {
+                if (category.id > 2) {
                     HorizontalDivider(thickness = 1.dp)
                 }
             }
@@ -53,7 +69,7 @@ fun MainContent(
                     modifier = Modifier.clickable {moveToCategoryDetails(category.id.toLong())},
                     leadingContent = {
                         Image(
-                            painter = painterResource(id = R.drawable.ic_launcher_background), // Podmień na swoje źródło
+                            painter = painterResource(id = category.imageResId), // Podmień na swoje źródło
                             contentDescription = null,
                             contentScale = ContentScale.Crop,
                             modifier = Modifier
@@ -64,7 +80,7 @@ fun MainContent(
                     headlineContent = {
                         Text(
                             text = category.name,
-                            style = MaterialTheme.typography.titleLarge,
+                            style = MaterialTheme.typography.titleMedium,
                             fontWeight = FontWeight.Bold,
                             color = Color.Black
                         )

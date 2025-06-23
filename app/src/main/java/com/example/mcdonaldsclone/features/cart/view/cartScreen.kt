@@ -15,6 +15,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
@@ -40,20 +41,17 @@ fun ZamowIOdbierzScreen() {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
     var currentlyViewing by remember { mutableStateOf("main") }
+    var currentlyViewingTitle by remember { mutableStateOf("Zamów") }
 
     var currentCategoryIdViewing by remember { mutableLongStateOf(0) }
     var currentProductIdViewing by remember { mutableLongStateOf(0) }
 
     Scaffold(
         topBar = {
-            CenterAlignedTopAppBar(
-                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    titleContentColor = MaterialTheme.colorScheme.primary,
-                ),
+            TopAppBar(
                 title = {
                     Text(
-                        "Zeskanuj kod, aby zbierać punkty",
+                        currentlyViewingTitle,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
@@ -63,15 +61,9 @@ fun ZamowIOdbierzScreen() {
                         Icon(
                             imageVector = Icons.Default.Close,
                             contentDescription = "Wróć",
-                            tint = Color.White
+                            tint = Color.Black
                         )
                     }
-                },
-                actions = {
-                    Text(
-                        text = "${FakeDataProvider.loyaltyPoints.currentPoints} pkt",
-                        fontWeight = FontWeight.Bold
-                    )
                 },
                 scrollBehavior = scrollBehavior,
 
@@ -105,6 +97,7 @@ fun ZamowIOdbierzScreen() {
         }
     ) { innerPadding ->
         if (currentlyViewing == "main") {
+            currentlyViewingTitle = "Zamów"
             MainContent(
                 innerPadding = innerPadding,
                 moveToCategoryDetails = { categoryId ->
@@ -114,6 +107,7 @@ fun ZamowIOdbierzScreen() {
         }
 
         if (currentlyViewing == "CategoryDetails") {
+            currentlyViewingTitle = FakeDataProvider.categories.find { it.id == currentCategoryIdViewing }!!.name
             CategoryDetailsContent(
                 innerPadding = innerPadding,
                 categoryId = currentCategoryIdViewing,
@@ -125,6 +119,7 @@ fun ZamowIOdbierzScreen() {
         }
 
         if (currentlyViewing == "ProductDetails") {
+            currentlyViewingTitle = ""
             ProductDetailsContent(
                 innerPadding = innerPadding,
                 productId = currentProductIdViewing,
