@@ -38,6 +38,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.mcdonaldsclone.core.database.fakeData.FakeDataProvider
 import com.example.mcdonaldsclone.core.database.model.MenuItem
+import com.example.mcdonaldsclone.features.cart.components.BottomBarButton
 import com.example.mcdonaldsclone.features.cart.composables.CategoryDetailsContent
 import com.example.mcdonaldsclone.features.cart.composables.ChooseZestaw1stStepContent
 import com.example.mcdonaldsclone.features.cart.composables.ChooseZestaw2ndStepContent
@@ -90,130 +91,85 @@ fun ZamowIOdbierzScreen() {
             if (currentlyViewing == "ProductDetails") {
                 if (currentProduct.isSetAvailable == true) {
                     Row(
-                        Modifier
-                            .fillMaxWidth(),
+                        Modifier.fillMaxWidth(),
                     ) {
-                        OutlinedButton(
-                            onClick = { /* add to card current product x quantity */ },
-                            modifier = Modifier
-                                .weight(1f)
-                                .height(56.dp), // kwadratowy feeling,
-                            shape = RectangleShape
-                        ) {
-                            Text("Dodaj do zamówienia")
-                        }
-                        OutlinedButton(
+                        BottomBarButton(
+                            text = "Dodaj do zamówienia",
+                            modifier = Modifier.weight(1f),
+                            onClick = { currentlyViewing = "main" },
+                            color = Color.White
+                        )
+                        BottomBarButton(
+                            text = "Skomponuj zestaw",
+                            modifier = Modifier.weight(1f),
                             onClick = { currentlyViewing = "ChooseZestawContent" },
-                            modifier = Modifier
-                                .weight(1f)
-                                .height(56.dp),
-                            colors =ButtonDefaults.buttonColors(containerColor = Color(0xFFFFCC00)),
-                            shape = RectangleShape
-                        ) {
-                            Text("Skomponuj zestaw")
-                        }
+                        )
                     }
                 } else {
                     Row(
-                        Modifier
-                            .fillMaxWidth(),
+                        Modifier.fillMaxWidth()
                     ) {
-                        Button(
-                            onClick = { /* add to card current product x quantity */ }, // TODO dodać do viewModel coś w stylu current  quantity
-                            modifier = Modifier
-                                .weight(1f)
-                                .height(56.dp),
-                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFCC00)),
-                            shape = RectangleShape
-                            ) {
-                            Text("Dodaj do zamówienia")
-                        }
+                        BottomBarButton(
+                            text = "Dodaj do zamówienia",
+                            modifier = Modifier.weight(1f),
+                            onClick = { currentlyViewing = "main" },
+                        )
                     }
                 }
             }
             if (currentlyViewing == "ChooseZestawContent") {
                 Row(
-                    Modifier
-                        .fillMaxWidth(),
+                    Modifier.fillMaxWidth(),
                 ) {
-                    Button(
-                        onClick = { currentlyViewing = "ChooseZestaw1stStep"/* add to card current product x quantity */ }, // TODO dodać do viewModel coś w stylu current  quantity
-                        modifier = Modifier
-                            .weight(1f)
-                            .height(56.dp),
-                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFCC00)),
-                        shape = RectangleShape
-                    ) {
-                        Text("Dalej: Wybierz dodatek do zestawu")
-                    }
+                    BottomBarButton(
+                        text = "Dalej: Wybierz dodatek do zestawu",
+                        modifier = Modifier.weight(1f),
+                        onClick = { currentlyViewing = "ChooseZestaw1stStep" },
+                    )
                 }
             }
             if (currentlyViewing == "ChooseZestaw1stStep") {
                 Row(
-                    Modifier
-                        .fillMaxWidth(),
+                    Modifier.fillMaxWidth(),
                 ) {
-                    Button(
-                        onClick = { currentlyViewing = "ChooseZestaw2ndStep"/* add to card current product x quantity */ }, // TODO dodać do viewModel coś w stylu current  quantity
-                        modifier = Modifier
-                            .weight(1f)
-                            .height(56.dp),
-                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFCC00)),
-                        shape = RectangleShape
-                    ) {
-                        Text("Dalej: Wybierz napój")
-                    }
+                    BottomBarButton(
+                        text = "Dalej: Wybierz napój",
+                        modifier = Modifier.weight(1f),
+                        onClick = { currentlyViewing = "ChooseZestaw2ndStep" },
+                    )
                 }
             }
             if (currentlyViewing == "ChooseExtrasForSide") {
                 Row(
-                    Modifier
-                        .fillMaxWidth(),
+                    Modifier.fillMaxWidth(),
                 ) {
-                    Button(
-                        onClick = { currentlyViewing = "ChooseZestaw1stStep"/* add to card current product x quantity */ }, // TODO dodać do viewModel coś w stylu current  quantity
-                        modifier = Modifier
-                            .weight(1f)
-                            .height(56.dp),
-                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFCC00)),
-                        shape = RectangleShape
-                    ) {
-                        Text("Potwierdź")
-                    }
+                    BottomBarButton(
+                        text = "Potwierdź",
+                        modifier = Modifier.weight(1f),
+                        onClick = { currentlyViewing = "ChooseZestaw1stStep" },
+                    )
                 }
             }
             if (currentlyViewing == "ChooseZestaw2ndStep") {
                 Row(
-                    Modifier
-                        .fillMaxWidth(),
+                    Modifier.fillMaxWidth(),
                 ) {
-                    Button(
-                        onClick = { currentlyViewing = "ChooseZestawFinalStep"/* add to card current product x quantity */ }, // TODO dodać do viewModel coś w stylu current  quantity
-                        modifier = Modifier
-                            .weight(1f)
-                            .height(56.dp),
-                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFCC00)),
-                        shape = RectangleShape
-                    ) {
-                        Text("Dalej: Zobacz swoje zamówienie")
-                    }
+                    BottomBarButton(
+                        text = "Dalej: Zobacz swoje zamówienie",
+                        modifier = Modifier.weight(1f),
+                        onClick = { currentlyViewing = "ChooseZestawFinalStep" },
+                    )
                 }
             }
             if (currentlyViewing == "ChooseZestawFinalStep") {
                 Row(
-                    Modifier
-                        .fillMaxWidth(),
+                    Modifier.fillMaxWidth(),
                 ) {
-                    Button(
-                        onClick = { currentlyViewing = "main"/* add to card current product x quantity */ }, // TODO dodać do viewModel coś w stylu current  quantity
-                        modifier = Modifier
-                            .weight(1f)
-                            .height(56.dp),
-                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFCC00)),
-                        shape = RectangleShape
-                    ) {
-                        Text("Dodaj do zamówienia")
-                    }
+                    BottomBarButton(
+                        text = "Dodaj do zamówienia",
+                        modifier = Modifier.weight(1f),
+                        onClick = { currentlyViewing = "main" },
+                    )
                 }
             }
         }

@@ -46,6 +46,7 @@ import com.example.mcdonaldsclone.R
 import com.example.mcdonaldsclone.core.database.fakeData.FakeDataProvider
 import com.example.mcdonaldsclone.core.database.model.MenuItem
 import com.example.mcdonaldsclone.core.database.model.archiveModel.Sauce
+import com.example.mcdonaldsclone.features.cart.components.YellowCheck
 
 @Composable
 fun ProductWithExtrasContent(
@@ -155,20 +156,7 @@ private fun SauceItem(
         }
 
         if (selected) {
-            Box(
-                modifier = Modifier
-                    .size(24.dp) // mały rozmiar kółka
-                    .background(color = Color(0xFFFFC107), shape = CircleShape)
-                    .border(width = 1.dp, color = Color.Black, shape = CircleShape),
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Check,
-                    contentDescription = "Wybrano",
-                    tint = Color.Black,
-                    modifier = Modifier.size(16.dp) // mniejszy check w środku
-                )
-            }
+            YellowCheck()
         }
     }
 }

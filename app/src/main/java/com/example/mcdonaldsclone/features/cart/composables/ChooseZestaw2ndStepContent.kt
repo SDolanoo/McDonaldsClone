@@ -46,6 +46,7 @@ import androidx.compose.ui.unit.dp
 import com.example.mcdonaldsclone.core.database.fakeData.FakeDataProvider
 import com.example.mcdonaldsclone.core.database.model.SubCategory
 import com.example.mcdonaldsclone.core.database.model.MenuItem
+import com.example.mcdonaldsclone.features.cart.components.YellowCheck
 
 @Composable
 fun ChooseZestaw2ndStepContent(
@@ -186,20 +187,7 @@ private fun DrinkOptionItem (
         }
 
         if (selected) {
-            Box(
-                modifier = Modifier
-                    .size(24.dp) // mały rozmiar kółka
-                    .background(color = Color(0xFFFFC107), shape = CircleShape)
-                    .border(width = 1.dp, color = Color.Black, shape = CircleShape),
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Check,
-                    contentDescription = "Wybrano",
-                    tint = Color.Black,
-                    modifier = Modifier.size(16.dp) // mniejszy check w środku
-                )
-            }
+            YellowCheck()
         }
     }
 }

@@ -47,6 +47,7 @@ import com.example.mcdonaldsclone.R
 import com.example.mcdonaldsclone.core.database.fakeData.FakeDataProvider
 import com.example.mcdonaldsclone.core.database.model.MenuItem
 import com.example.mcdonaldsclone.core.database.model.archiveModel.ZestawOption
+import com.example.mcdonaldsclone.features.cart.components.YellowCheck
 import com.google.firebase.crashlytics.buildtools.reloc.com.google.common.collect.Multimaps.index
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.client.methods.RequestBuilder.options
 
@@ -218,20 +219,7 @@ private fun ZestawOptionItem(
         }
 
         if (selected) {
-            Box(
-                modifier = Modifier
-                    .size(24.dp) // mały rozmiar kółka
-                    .background(color = Color(0xFFFFC107), shape = CircleShape)
-                    .border(width = 1.dp, color = Color.Black, shape = CircleShape),
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Check,
-                    contentDescription = "Wybrano",
-                    tint = Color.Black,
-                    modifier = Modifier.size(16.dp) // mniejszy check w środku
-                )
-            }
+            YellowCheck()
         }
     }
 }
