@@ -39,8 +39,12 @@ import androidx.compose.ui.unit.dp
 import com.example.mcdonaldsclone.core.database.fakeData.FakeDataProvider
 import com.example.mcdonaldsclone.core.database.model.MenuItem
 import com.example.mcdonaldsclone.features.cart.composables.CategoryDetailsContent
+import com.example.mcdonaldsclone.features.cart.composables.ChooseZestaw1stStepContent
+import com.example.mcdonaldsclone.features.cart.composables.ChooseZestaw2ndStepContent
+import com.example.mcdonaldsclone.features.cart.composables.ChooseZestawContent
 import com.example.mcdonaldsclone.features.cart.composables.MainContent
 import com.example.mcdonaldsclone.features.cart.composables.ProductDetailsContent
+import com.example.mcdonaldsclone.features.cart.composables.ProductWithExtrasContent
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -89,7 +93,7 @@ fun ZamowIOdbierzScreen() {
                             .fillMaxWidth(),
                     ) {
                         OutlinedButton(
-                            onClick = { /* Dodaj do zamówienia */ },
+                            onClick = { /* add to card current product x quantity */ },
                             modifier = Modifier
                                 .weight(1f)
                                 .height(56.dp), // kwadratowy feeling,
@@ -98,7 +102,7 @@ fun ZamowIOdbierzScreen() {
                             Text("Dodaj do zamówienia")
                         }
                         OutlinedButton(
-                            onClick = { /* Skomponuj zestaw */ },
+                            onClick = { currentlyViewing = "ChooseZestawContent" },
                             modifier = Modifier
                                 .weight(1f)
                                 .height(56.dp),
@@ -114,13 +118,100 @@ fun ZamowIOdbierzScreen() {
                             .fillMaxWidth(),
                     ) {
                         Button(
-                            onClick = { /* Add to order */ }, // TODO dodać do viewModel coś w stylu current  quantity
-                            modifier = Modifier.weight(1f).height(56.dp),
+                            onClick = { /* add to card current product x quantity */ }, // TODO dodać do viewModel coś w stylu current  quantity
+                            modifier = Modifier
+                                .weight(1f)
+                                .height(56.dp),
                             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFCC00)),
                             shape = RectangleShape
                             ) {
                             Text("Dodaj do zamówienia")
                         }
+                    }
+                }
+            }
+            if (currentlyViewing == "ChooseZestawContent") {
+                Row(
+                    Modifier
+                        .fillMaxWidth(),
+                ) {
+                    Button(
+                        onClick = { currentlyViewing = "ChooseZestaw1stStep"/* add to card current product x quantity */ }, // TODO dodać do viewModel coś w stylu current  quantity
+                        modifier = Modifier
+                            .weight(1f)
+                            .height(56.dp),
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFCC00)),
+                        shape = RectangleShape
+                    ) {
+                        Text("Dalej: Wybierz dodatek do zestawu")
+                    }
+                }
+            }
+            if (currentlyViewing == "ChooseZestaw1stStep") {
+                Row(
+                    Modifier
+                        .fillMaxWidth(),
+                ) {
+                    Button(
+                        onClick = { currentlyViewing = "ChooseZestaw2ndStep"/* add to card current product x quantity */ }, // TODO dodać do viewModel coś w stylu current  quantity
+                        modifier = Modifier
+                            .weight(1f)
+                            .height(56.dp),
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFCC00)),
+                        shape = RectangleShape
+                    ) {
+                        Text("Dalej: Wybierz napój")
+                    }
+                }
+            }
+            if (currentlyViewing == "ChooseExtrasForSide") {
+                Row(
+                    Modifier
+                        .fillMaxWidth(),
+                ) {
+                    Button(
+                        onClick = { currentlyViewing = "ChooseZestaw1stStep"/* add to card current product x quantity */ }, // TODO dodać do viewModel coś w stylu current  quantity
+                        modifier = Modifier
+                            .weight(1f)
+                            .height(56.dp),
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFCC00)),
+                        shape = RectangleShape
+                    ) {
+                        Text("Potwierdź")
+                    }
+                }
+            }
+            if (currentlyViewing == "ChooseZestaw2ndStep") {
+                Row(
+                    Modifier
+                        .fillMaxWidth(),
+                ) {
+                    Button(
+                        onClick = { currentlyViewing = "ChooseZestawFinalStep"/* add to card current product x quantity */ }, // TODO dodać do viewModel coś w stylu current  quantity
+                        modifier = Modifier
+                            .weight(1f)
+                            .height(56.dp),
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFCC00)),
+                        shape = RectangleShape
+                    ) {
+                        Text("Dalej: Zobacz swoje zamówienie")
+                    }
+                }
+            }
+            if (currentlyViewing == "ChooseZestawFinalStep") {
+                Row(
+                    Modifier
+                        .fillMaxWidth(),
+                ) {
+                    Button(
+                        onClick = { currentlyViewing = "main"/* add to card current product x quantity */ }, // TODO dodać do viewModel coś w stylu current  quantity
+                        modifier = Modifier
+                            .weight(1f)
+                            .height(56.dp),
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFCC00)),
+                        shape = RectangleShape
+                    ) {
+                        Text("Dodaj do zamówienia")
                     }
                 }
             }
@@ -154,6 +245,46 @@ fun ZamowIOdbierzScreen() {
                 innerPadding = innerPadding,
                 productId = currentProductIdViewing,
             )
+        }
+        
+        if (currentlyViewing == "ChooseZestawContent") {
+            currentlyViewingTitle = ""
+            ChooseZestawContent(
+                innerPadding = innerPadding,
+                productId = currentProductIdViewing,
+                )
+
+        }
+
+        if(currentlyViewing == "ChooseZestaw1stStep") {
+            currentlyViewingTitle = ""
+            ChooseZestaw1stStepContent(
+                innerPadding = innerPadding,
+                navigateToProductWithExtrasContent = {
+                    currentProductIdViewing = it
+                    currentlyViewing = "ChooseExtrasForSide"
+                }
+            )
+
+        }
+
+        if (currentlyViewing == "ChooseExtrasForSide") {
+            currentlyViewingTitle = ""
+            ProductWithExtrasContent(
+                innerPadding = innerPadding,
+                productId = currentProductIdViewing
+            )
+        }
+
+        if(currentlyViewing == "ChooseZestaw2ndStep") {
+            currentlyViewingTitle = ""
+            ChooseZestaw2ndStepContent (
+                innerPadding = innerPadding,
+            )
+        }
+
+        if(currentlyViewing == "ChooseZestawFinalStep") {
+            currentlyViewingTitle = ""
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.example.mcdonaldsclone.features.cart.composables
 
+import androidx.collection.mutableLongSetOf
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -17,13 +18,20 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableLongStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -38,9 +46,12 @@ import com.example.mcdonaldsclone.core.database.model.archiveModel.Sauce
 @Composable
 fun ProductWithExtrasContent(
     innerPadding: PaddingValues,
-    productName: String,
-    price: Double,
+    productId: Long,
 ) {
+    var selectedIndex by remember { mutableLongStateOf(201L) }
+
+    val product: MenuItem = FakeDataProvider.menuItems.find { it.id == productId }!!
+
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
@@ -57,18 +68,20 @@ fun ProductWithExtrasContent(
             ) {
                 Column {
                     Text(
-                        text = productName,
+                        text = product.name,
                         style = MaterialTheme.typography.titleLarge,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
+                        color = Color.Black
                     )
                     Text(
-                        text = "%.2f zł".format(price),
-                        style = MaterialTheme.typography.bodyMedium
+                        text = "%.2f zł".format(product.basePrice),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = Color.Black
                     )
                 }
 
                 Image(
-                    painter = painterResource(id = R.drawable.ic_launcher_background), // Replace!
+                    painter = painterResource(id = product.imageResId), // Replace!
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
@@ -82,56 +95,67 @@ fun ProductWithExtrasContent(
             Text(
                 text = "Wybierz sos",
                 style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                color = Color.Black
             )
         }
 
         items(FakeDataProvider.menuItems.filter { it.subCategoryId == 10L /* 10 == sosy*/ }) { sauce ->
-            SauceItem(sauce)
+            SauceItem(
+                sauce = sauce,
+                selected = sauce.id == selectedIndex,
+                onClick = { selectedIndex = sauce.id }
+            )
         }
     }
 }
 @Composable
-private fun SauceItem(sauce: MenuItem) {
+private fun SauceItem(
+    sauce: MenuItem,
+    selected: Boolean,
+    onClick: () -> Unit
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { /* Handle selection */ }
-            .padding(vertical = 8.dp),
+            .clickable(onClick = onClick)
+            .padding(vertical = 12.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        // Spice Level Indicator
-        if (sauce.spiceLevel!! > 0) {
-            Row(Modifier.padding(end = 8.dp)) {
-                repeat(sauce.spiceLevel) {
-                    Text("🌶", fontSize = 14.sp)
-                }
-            }
-        } else {
-            Spacer(modifier = Modifier.width(24.dp)) // align with spicy ones
-        }
 
         // Sauce image
         Image(
-            painter = painterResource(R.drawable.ic_launcher_background),
+            painter = painterResource(id = sauce.imageResId),
             contentDescription = sauce.name,
             modifier = Modifier
-                .size(40.dp)
-                .clip(RectangleShape)
+                .size(56.dp)
+                .clip(RoundedCornerShape(8.dp)),
+            contentScale = ContentScale.Crop
         )
 
         Spacer(modifier = Modifier.width(12.dp))
 
         // Sauce name
-        Text(
-            text = sauce.name,
-            style = MaterialTheme.typography.bodyLarge,
-            modifier = Modifier.weight(1f)
-        )
+        Column(modifier = Modifier.weight(1f)) {
+            Text(
+                text = sauce.name,
+                style = MaterialTheme.typography.bodyLarge
+            )
+            if (selected) {
+                Text(
+                    text = "+${"%.2f zł".format(sauce.basePrice)}",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = Color.Gray
+                )
+            }
+        }
 
-        Icon(
-            imageVector = Icons.Default.ArrowDropDown,
-            contentDescription = null
-        )
+        if (selected) {
+            Icon(
+                imageVector = Icons.Default.Check,
+                contentDescription = "Wybrano",
+                tint = Color(0xFFFFC107) // yellow like the screenshot
+            )
+        }
     }
 }

@@ -1,17 +1,23 @@
 package com.example.mcdonaldsclone.features.cart.composables
 
+import android.R.attr.onClick
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -25,6 +31,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -36,16 +43,22 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.mcdonaldsclone.R
+import com.example.mcdonaldsclone.core.database.fakeData.FakeDataProvider
+import com.example.mcdonaldsclone.core.database.model.MenuItem
 import com.example.mcdonaldsclone.core.database.model.archiveModel.ZestawOption
+import com.google.firebase.crashlytics.buildtools.reloc.com.google.common.collect.Multimaps.index
+import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.client.methods.RequestBuilder.options
 
 @Composable
 fun ChooseZestawContent(
     innerPadding: PaddingValues,
-    productName: String,
-    basePrice: Double,
-    options: List<ZestawOption>
+    productId: Long
 ) {
     var selectedIndex by remember { mutableIntStateOf(0) }
+
+    val product: MenuItem = FakeDataProvider.menuItems.find { it.id == productId }!!
+
+    var currentName by remember { mutableStateOf("Zestaw") }
 
     LazyColumn(
         modifier = Modifier
@@ -62,18 +75,38 @@ fun ChooseZestawContent(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Column {
-                    Text(
-                        text = productName,
-                        style = MaterialTheme.typography.titleLarge,
-                        fontWeight = FontWeight.Bold
-                    )
-                    Text(
-                        text = "%.2f zł".format(basePrice),
-                        style = MaterialTheme.typography.bodyMedium
-                    )
+                    Column {
+                        Text(
+                            text = product.name,
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.Black
+                        )
+                        Text(
+                            text = currentName,
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.Black
+                        )
+                    }
+
+                    if (selectedIndex == 0) {
+                        Text(
+                            text = "%.2f zł".format(product.setPrice),
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = Color.Black
+                        )
+                    } else {
+                        Text(
+                            text = "%.2f zł".format(product.setPrice!!.plus(3.00)),
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = Color.Black
+                        )
+                    }
+
                 }
                 Image(
-                    painter = painterResource(id = R.drawable.ic_launcher_background), // swap image!
+                    painter = painterResource(id = product.imageResId), // swap image!
                     contentDescription = null,
                     modifier = Modifier
                         .size(72.dp)
@@ -91,28 +124,61 @@ fun ChooseZestawContent(
             )
         }
 
-        itemsIndexed(options) { index, option ->
+        item {
             ZestawOptionItem(
-                option = option,
-                selected = index == selectedIndex,
-                onClick = { selectedIndex = index }
+                imageResId = product.imageResId,
+                name = "${product.name} Zestaw",
+                price = product.basePrice,
+                priceDifference = "-3,00zł",
+                selected = 0 == selectedIndex,
+                onClick = {
+                    currentName = "Zestaw"
+                    selectedIndex = 0
+                }
+            )
+        }
+        item {
+            ZestawOptionItem(
+                imageResId = product.imageResId,
+                name = "${product.name} Zestaw Powiększony",
+                price = product.basePrice,
+                priceDifference = "+3,00zł",
+                selected = 1 == selectedIndex,
+                onClick = {
+                    currentName = "Zestaw Powiększony"
+                    selectedIndex = 1
+                }
             )
         }
 
+
         item {
-            Button(
-                onClick = { /* Show nutrition info */ },
-                modifier = Modifier.fillMaxWidth(),
-                colors = ButtonDefaults.buttonColors(containerColor = Color.LightGray)
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentWidth(Alignment.CenterHorizontally)
             ) {
-                Text("Składniki i wartości odżywcze", color = Color.Black)
+                Button(
+                    onClick = { /* TODO: Navigate to details */ },
+                    modifier = Modifier
+                        .border(1.dp, Color.Gray, RoundedCornerShape(10))
+                        .clip(RoundedCornerShape(10))
+                        .height(60.dp)
+                        .background(Color.White)
+                        .padding(horizontal = 16.dp)
+                ) {
+                    Text(text = "Składniki i wartości odżywcze", color = Color.Black)
+                }
             }
         }
     }
 }
 @Composable
 private fun ZestawOptionItem(
-    option: ZestawOption,
+    imageResId: Int,
+    name: String,
+    price: Double,
+    priceDifference: String,
     selected: Boolean,
     onClick: () -> Unit
 ) { // TODO Make zestaw class with fake data provider - name, additional price lista produktów ?
@@ -124,7 +190,7 @@ private fun ZestawOptionItem(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Image(
-            painter = painterResource(id = R.drawable.ic_launcher_background),
+            painter = painterResource(id = imageResId),
             contentDescription = "title",
             modifier = Modifier
                 .size(56.dp)
@@ -136,16 +202,18 @@ private fun ZestawOptionItem(
 
         Column(modifier = Modifier.weight(1f)) {
             Text(
-                text = "zestaw",
+                text = name,
                 style = MaterialTheme.typography.bodyLarge
             )
-            if (option.extraPrice > 0) {
+            if (!selected) {
                 Text(
-                    text = "+%.2f zł".format(10),
+                    text = priceDifference,
                     style = MaterialTheme.typography.bodySmall,
                     color = Color.Gray
                 )
             }
+
+
         }
 
         if (selected) {
