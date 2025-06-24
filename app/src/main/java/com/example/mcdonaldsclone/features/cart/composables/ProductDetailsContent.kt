@@ -48,7 +48,7 @@ fun ProductDetailsContent(
     productId: Long,
 
     ) {
-    val product: MenuItem? = FakeDataProvider.menuItems.find { it.id == productId }
+    val product: MenuItem = FakeDataProvider.menuItems.find { it.id == productId }!!
     var quantity by remember { mutableIntStateOf(1) }
 
     LazyColumn(
@@ -59,7 +59,7 @@ fun ProductDetailsContent(
         verticalArrangement = Arrangement.spacedBy(16.dp),
         contentPadding = PaddingValues(vertical = 24.dp)
     ) {
-        product?.let {
+        product.let {
             item {
                 Text(
                     text = it.name,
@@ -128,12 +128,6 @@ fun ProductDetailsContent(
                     }
                 }
             }
-        } ?: item {
-            Text(
-                text = "Produkt nie znaleziony",
-                color = Color.Red,
-                modifier = Modifier.padding(16.dp)
-            )
         }
     }
 }

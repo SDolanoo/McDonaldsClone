@@ -42,6 +42,7 @@ import com.example.mcdonaldsclone.features.cart.composables.CategoryDetailsConte
 import com.example.mcdonaldsclone.features.cart.composables.ChooseZestaw1stStepContent
 import com.example.mcdonaldsclone.features.cart.composables.ChooseZestaw2ndStepContent
 import com.example.mcdonaldsclone.features.cart.composables.ChooseZestawContent
+import com.example.mcdonaldsclone.features.cart.composables.ChooseZestawFinalStepContent
 import com.example.mcdonaldsclone.features.cart.composables.MainContent
 import com.example.mcdonaldsclone.features.cart.composables.ProductDetailsContent
 import com.example.mcdonaldsclone.features.cart.composables.ProductWithExtrasContent
@@ -285,6 +286,10 @@ fun ZamowIOdbierzScreen() {
 
         if(currentlyViewing == "ChooseZestawFinalStep") {
             currentlyViewingTitle = ""
+            ChooseZestawFinalStepContent(
+                innerPadding = innerPadding,
+                productId = currentProductIdViewing
+            )
         }
     }
 }

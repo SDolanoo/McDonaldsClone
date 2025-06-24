@@ -2,7 +2,10 @@ package com.example.mcdonaldsclone.features.cart.composables
 
 import android.R.attr.name
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -16,6 +19,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
@@ -182,11 +186,20 @@ private fun DrinkOptionItem (
         }
 
         if (selected) {
-            Icon(
-                imageVector = Icons.Default.Check,
-                contentDescription = "Wybrano",
-                tint = Color(0xFFFFC107) // yellow like the screenshot
-            )
+            Box(
+                modifier = Modifier
+                    .size(24.dp) // mały rozmiar kółka
+                    .background(color = Color(0xFFFFC107), shape = CircleShape)
+                    .border(width = 1.dp, color = Color.Black, shape = CircleShape),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Check,
+                    contentDescription = "Wybrano",
+                    tint = Color.Black,
+                    modifier = Modifier.size(16.dp) // mniejszy check w środku
+                )
+            }
         }
     }
 }

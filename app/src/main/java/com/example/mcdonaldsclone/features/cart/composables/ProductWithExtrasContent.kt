@@ -2,8 +2,11 @@ package com.example.mcdonaldsclone.features.cart.composables
 
 import androidx.collection.mutableLongSetOf
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -15,6 +18,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
@@ -100,7 +104,7 @@ fun ProductWithExtrasContent(
             )
         }
 
-        items(FakeDataProvider.menuItems.filter { it.subCategoryId == 10L /* 10 == sosy*/ }) { sauce ->
+        items(FakeDataProvider.menuItems.filter { it.subCategoryId == if (product.subCategoryId == 7L) 11L else 10L }) { sauce ->
             SauceItem(
                 sauce = sauce,
                 selected = sauce.id == selectedIndex,
@@ -151,11 +155,20 @@ private fun SauceItem(
         }
 
         if (selected) {
-            Icon(
-                imageVector = Icons.Default.Check,
-                contentDescription = "Wybrano",
-                tint = Color(0xFFFFC107) // yellow like the screenshot
-            )
+            Box(
+                modifier = Modifier
+                    .size(24.dp) // mały rozmiar kółka
+                    .background(color = Color(0xFFFFC107), shape = CircleShape)
+                    .border(width = 1.dp, color = Color.Black, shape = CircleShape),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Check,
+                    contentDescription = "Wybrano",
+                    tint = Color.Black,
+                    modifier = Modifier.size(16.dp) // mniejszy check w środku
+                )
+            }
         }
     }
 }
