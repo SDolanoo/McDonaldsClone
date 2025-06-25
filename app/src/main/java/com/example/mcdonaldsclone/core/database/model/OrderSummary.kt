@@ -1,5 +1,6 @@
 package com.example.mcdonaldsclone.core.database.model
 
+import com.example.mcdonaldsclone.core.database.model.archiveModel.CartItem
 import java.time.LocalDateTime
 
 data class OrderSummary(

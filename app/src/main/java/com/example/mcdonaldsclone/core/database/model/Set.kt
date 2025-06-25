@@ -7,4 +7,4 @@ data class Set(
     @DrawableRes val imageResId: Int,
     val price: Double,
     val quantity: Int
-) {}
+)
