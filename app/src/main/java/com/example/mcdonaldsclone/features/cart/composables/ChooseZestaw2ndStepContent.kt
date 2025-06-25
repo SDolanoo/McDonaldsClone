@@ -1,6 +1,7 @@
 package com.example.mcdonaldsclone.features.cart.composables
 
 import android.R.attr.name
+import android.R.attr.onClick
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -51,6 +52,7 @@ import com.example.mcdonaldsclone.features.cart.components.YellowCheck
 @Composable
 fun ChooseZestaw2ndStepContent(
     innerPadding: PaddingValues,
+    onClick: (Long) -> Unit
 ) {
     var choosenPoduct by remember { mutableStateOf(null) }
 
@@ -114,6 +116,7 @@ fun ChooseZestaw2ndStepContent(
                     selected = drink.id == selectedIndex,
                     onClick = {
                         selectedIndex = drink.id
+                        onClick(drink.id)
                     }
                 )
             }

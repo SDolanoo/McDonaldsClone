@@ -27,6 +27,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableLongStateOf
@@ -42,20 +43,25 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.mcdonaldsclone.R
 import com.example.mcdonaldsclone.core.database.fakeData.FakeDataProvider
 import com.example.mcdonaldsclone.core.database.model.MenuItem
 import com.example.mcdonaldsclone.core.database.model.archiveModel.Sauce
 import com.example.mcdonaldsclone.features.cart.components.YellowCheck
+import com.example.mcdonaldsclone.features.cart.viewModel.CartViewModel
 
 @Composable
 fun ProductWithExtrasContent(
     innerPadding: PaddingValues,
-    productId: Long,
+    menuItemId: Long,
+    onSelectedIndex: (Long) -> Unit
 ) {
     var selectedIndex by remember { mutableLongStateOf(201L) }
 
-    val product: MenuItem = FakeDataProvider.menuItems.find { it.id == productId }!!
+
+
+    val product: MenuItem = FakeDataProvider.menuItems.find { it.id == menuItemId }!!
 
     LazyColumn(
         modifier = Modifier
@@ -109,7 +115,7 @@ fun ProductWithExtrasContent(
             SauceItem(
                 sauce = sauce,
                 selected = sauce.id == selectedIndex,
-                onClick = { selectedIndex = sauce.id }
+                onClick = { selectedIndex = sauce.id; onSelectedIndex(sauce.id) }
             )
         }
     }

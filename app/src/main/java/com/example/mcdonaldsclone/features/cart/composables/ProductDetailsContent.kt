@@ -45,10 +45,10 @@ import com.example.mcdonaldsclone.core.database.model.archiveModel.Product
 @Composable
 fun ProductDetailsContent(
     innerPadding: PaddingValues,
-    productId: Long,
-
+    menuItemId: Long,
+    onQuantity: (Int) -> Unit,
     ) {
-    val product: MenuItem = FakeDataProvider.menuItems.find { it.id == productId }!!
+    val product: MenuItem = FakeDataProvider.menuItems.find { it.id == menuItemId }!!
     var quantity by remember { mutableIntStateOf(1) }
 
     LazyColumn(
@@ -102,8 +102,8 @@ fun ProductDetailsContent(
                 ) {
                     QuantitySelector(
                         quantity = quantity,
-                        onIncrease = { quantity++ },
-                        onDecrease = { if (quantity > 1) quantity-- }
+                        onIncrease = { quantity++; onQuantity(quantity) },
+                        onDecrease = { if (quantity > 1) quantity--; onQuantity(quantity) }
                     )
                 }
             }

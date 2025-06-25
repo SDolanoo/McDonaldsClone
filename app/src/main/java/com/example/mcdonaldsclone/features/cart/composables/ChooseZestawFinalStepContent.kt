@@ -1,10 +1,8 @@
 package com.example.mcdonaldsclone.features.cart.composables
 
-import android.R
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,18 +19,11 @@ import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.Button
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableLongStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -44,24 +35,23 @@ import androidx.compose.ui.unit.dp
 import com.example.mcdonaldsclone.core.database.fakeData.FakeDataProvider
 import com.example.mcdonaldsclone.core.database.model.MenuItem
 import com.example.mcdonaldsclone.core.database.model.Set
-import org.apache.commons.math3.stat.StatUtils.product
+import com.example.mcdonaldsclone.features.cart.viewModel.CartViewModel
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.getValue
 
 @Composable
 fun ChooseZestawFinalStepContent(
     innerPadding: PaddingValues,
-    productId: Long,
+    menuItemId: Long,
+    viewModel: CartViewModel
 ) {
+    val composingSet by viewModel.composingSet.collectAsState()
 
-    val product: MenuItem = FakeDataProvider.menuItems.find { it.id == productId }!!
+    val product: MenuItem = composingSet.listMenuItems.firstOrNull()!!
     val frytki: MenuItem = FakeDataProvider.menuItems.find { it.id == 108L }!!
     val sos: MenuItem = FakeDataProvider.menuItems.find { it.id == 202L }!!
     val napoj: MenuItem = FakeDataProvider.menuItems.find { it.id == 101L }!!
-    val zestaw = Set(
-        listMenuItems = listOf(product,frytki,sos,napoj),
-        imageResId = product.imageResId,
-        price = product.setPrice!!,
-        quantity = 1
-    )
+    val zestaw = composingSet
 
 
     LazyColumn(

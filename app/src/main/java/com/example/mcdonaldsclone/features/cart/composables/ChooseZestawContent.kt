@@ -54,11 +54,11 @@ import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.client.m
 @Composable
 fun ChooseZestawContent(
     innerPadding: PaddingValues,
-    productId: Long
+    menuItemId: Long
 ) {
     var selectedIndex by remember { mutableIntStateOf(0) }
 
-    val product: MenuItem = FakeDataProvider.menuItems.find { it.id == productId }!!
+    val product: MenuItem = FakeDataProvider.menuItems.find { it.id == menuItemId }!!
 
     var currentName by remember { mutableStateOf("Zestaw") }
 

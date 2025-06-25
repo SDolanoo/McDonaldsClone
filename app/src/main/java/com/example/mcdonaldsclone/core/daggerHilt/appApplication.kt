@@ -2,6 +2,7 @@ package com.example.mcdonaldsclone.core.daggerHilt
 
 import android.app.Application
 import android.content.Context
+import com.example.mcdonaldsclone.core.database.fakeData.FakeDataProvider
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,5 +21,11 @@ object DIAppModule {
     @Singleton
     fun provideContext(application: Application): Context {
         return application.applicationContext
+    }
+
+    @Provides
+    @Singleton
+    fun provideFakeDataProvider(): FakeDataProvider {
+        return FakeDataProvider
     }
 }
