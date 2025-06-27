@@ -9,6 +9,7 @@ import com.example.mcdonaldsclone.core.database.model.LoyaltyPoints
 import com.example.mcdonaldsclone.core.database.model.MenuItem
 import com.example.mcdonaldsclone.core.database.model.archiveModel.Product
 import com.example.mcdonaldsclone.core.database.model.Promo
+import com.example.mcdonaldsclone.core.database.model.Set
 import com.example.mcdonaldsclone.core.database.model.archiveModel.Sauce
 import com.example.mcdonaldsclone.core.database.model.SubCategory
 import com.example.mcdonaldsclone.core.database.model.UserSettings
@@ -98,33 +99,61 @@ object FakeDataProvider {
     val coupons = listOf(
         Coupon(
             1,
-            "McZestaw Powiększony WieśMac + McChicken",
+            "McChicken + Cheeseburger + małe frytki",
             "Wołowina",
             3490,
             R.drawable.zestaw1,
             false,
             "10:30",
-            "05:00"
+            "05:00",
+            Set(
+                listMenuItems = listOf(
+                    menuItems.find { it.id == 10L }!!,
+                    menuItems.find { it.id == 7L }!!,
+                    menuItems.find { it.id == 108L }!!
+                ),
+                imageResId = R.drawable.zestaw1,
+                price = 21.50,
+                quantity = 1,
+            )
         ),
         Coupon(
             2,
             "McWrap Klasyczny + małe frytki",
             "Kurczak",
             1850,
-            R.drawable.zestaw2,
+            R.drawable.zestaw3,
             false,
             "10:30",
-            "05:00"
+            "05:00",
+            Set(
+                listMenuItems = listOf(
+                    menuItems.find { it.id == 14L }!!,
+                    menuItems.find { it.id == 108L }!!
+                ),
+                imageResId = R.drawable.zestaw3,
+                price = 18.50,
+                quantity = 1,
+            )
         ),
         Coupon(
             3,
             "2x (McWrap Klasyczny + małe frytki)",
             "Kurczak",
             3700,
-            R.drawable.zestaw3,
+            R.drawable.zestaw2,
             false,
             "10:30",
-            "05:00"
+            "05:00",
+                    Set(
+                    listMenuItems = listOf(
+                        menuItems.find { it.id == 14L }!!,
+                        menuItems.find { it.id == 108L }!!
+                    ),
+            imageResId = R.drawable.zestaw2,
+            price = 37.00,
+            quantity = 1,
+        )
         ),
     )
 

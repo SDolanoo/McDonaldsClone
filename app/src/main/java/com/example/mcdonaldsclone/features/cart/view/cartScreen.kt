@@ -42,11 +42,10 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.mcdonaldsclone.core.database.fakeData.FakeDataProvider
 import com.example.mcdonaldsclone.core.database.model.MenuItem
 import com.example.mcdonaldsclone.core.database.model.Set
-import com.example.mcdonaldsclone.features.cart.components.BottomBarButton
+import com.example.mcdonaldsclone.core.composables.BottomBarButton
 import com.example.mcdonaldsclone.features.cart.composables.CategoryDetailsContent
 import com.example.mcdonaldsclone.features.cart.composables.ChooseZestaw1stStepContent
 import com.example.mcdonaldsclone.features.cart.composables.ChooseZestaw2ndStepContent

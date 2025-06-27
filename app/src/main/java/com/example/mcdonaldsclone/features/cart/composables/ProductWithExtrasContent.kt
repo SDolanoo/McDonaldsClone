@@ -40,7 +40,7 @@ fun ProductWithExtrasContent(
     menuItemId: Long,
     onSelectedIndex: (Long) -> Unit
 ) {
-    var selectedIndex by remember { mutableLongStateOf(201L) }
+    var selectedIndex by remember { mutableLongStateOf(202L) }
 
 
 

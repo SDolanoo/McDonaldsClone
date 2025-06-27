@@ -7,9 +7,12 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
@@ -35,12 +38,15 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.mcdonaldsclone.core.composables.BottomBarButton
 import com.example.mcdonaldsclone.core.database.fakeData.FakeDataProvider
 import com.example.mcdonaldsclone.core.database.model.Coupon
 
 @Composable
 fun CouponDetailsScreen(
     couponId: Long,
+    onOdbierz: (Long) -> Unit,
     popBack: () -> Unit,
 ) {
     val item: Coupon = requireNotNull(FakeDataProvider.coupons.find { it.id == couponId })
@@ -158,13 +164,18 @@ fun CouponDetailsScreen(
         }
 
         // Przycisk Odbierz
-        Button(
-            onClick = { /* TODO */ },
-            modifier = Modifier
+        Row(
+            Modifier
                 .fillMaxWidth()
-                .padding(16.dp)
+                .padding(WindowInsets.navigationBars.asPaddingValues()),
         ) {
-            Text(text = "Odbierz")
+            BottomBarButton(
+                text = "Odbierz",
+                modifier = Modifier.weight(1f),
+                onClick = {
+                    onOdbierz(item.id)
+                }
+            )
         }
     }
 }

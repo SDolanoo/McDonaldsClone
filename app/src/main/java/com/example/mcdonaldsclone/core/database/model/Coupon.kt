@@ -10,5 +10,6 @@ data class Coupon(
     @DrawableRes val imageResId: Int,
     val isUsed: Boolean = false,
     val availableFrom: String,
-    val availableTo: String
+    val availableTo: String,
+    val set: Set
 )

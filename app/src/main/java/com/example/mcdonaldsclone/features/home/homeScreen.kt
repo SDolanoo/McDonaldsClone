@@ -40,7 +40,9 @@ import com.example.mcdonaldsclone.core.composables.SmallCard
 @Composable
 fun HomeScreen(
     onNavigateToCoupons: () -> Unit,
-    onNavigateToQR: () -> Unit
+    onNavigateToQR: () -> Unit,
+    onNavigateToZamowIOdbierz: () -> Unit,
+    onNavigateToMojeM: () -> Unit
     ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
@@ -117,12 +119,14 @@ fun HomeScreen(
                         Spacer(modifier = Modifier.weight(1f))
                         SmallCard(
                             imageResId = R.drawable.icon2,
-                            text = "MojeM Nagrody"
+                            text = "MojeM Nagrody",
+                            onClick = { onNavigateToMojeM() }
                         )
                         Spacer(modifier = Modifier.weight(1f))
                         SmallCard(
                             imageResId = R.drawable.icon,
-                            text = "Zamów i odbierz"
+                            text = "Zamów i odbierz",
+                            onClick = { onNavigateToZamowIOdbierz() }
                         )
 
                     }

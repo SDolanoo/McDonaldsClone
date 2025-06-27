@@ -6,6 +6,9 @@ sealed class Screen(val route: String) {
     object CouponDetails : Screen("coupons/{couponId}") {
         fun createRoute(couponId: Long) = "coupons/$couponId"
     }
+    object CouponOdbierz : Screen("coupons/{couponId}/odbierz") {
+        fun createRoute(couponId: Long) = "coupons/$couponId/odbierz"
+    }
 
     object Menu : Screen("menu")
     object ProductDetails : Screen("menu/{productId}") {

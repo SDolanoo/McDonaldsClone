@@ -1,8 +1,5 @@
-package com.example.mcdonaldsclone.features.cart.components
+package com.example.mcdonaldsclone.core.composables
 
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedButton

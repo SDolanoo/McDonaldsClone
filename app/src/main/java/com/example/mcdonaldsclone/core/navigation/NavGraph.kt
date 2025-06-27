@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -19,6 +20,7 @@ import com.example.mcdonaldsclone.features.loyalty.LoyaltyCardDetailsScreen
 import com.example.mcdonaldsclone.features.loyalty.LoyaltyCardsScreen
 import com.example.mcdonaldsclone.features.mojeM.MojeMScreen
 import com.example.mcdonaldsclone.features.cart.view.SummaryCartScreen
+import com.example.mcdonaldsclone.features.coupons.CouponOdbierzScreen
 
 @SuppressLint("UnrememberedGetBackStackEntry")
 @Composable
@@ -28,13 +30,15 @@ fun AppNavGraph(navController: NavHostController) {
         startDestination = "cart_nav_graph",
     ) {
         navigation(
-            startDestination = Screen.ZamowIOdbierz.route,
+            startDestination = Screen.Home.route,
             route = "cart_nav_graph"
         ) {
             composable(Screen.Home.route) {
                 HomeScreen(
                     onNavigateToCoupons = { navController.navigate(Screen.MojeM.route) },
-                    onNavigateToQR = { navController.navigate(Screen.QR.route) }
+                    onNavigateToQR = { navController.navigate(Screen.QR.route) },
+                    onNavigateToZamowIOdbierz = { navController.navigate(Screen.ZamowIOdbierz.route) },
+                    onNavigateToMojeM = { navController.navigate(Screen.MojeM.route) }
                 )
             }
 
@@ -86,7 +90,27 @@ fun AppNavGraph(navController: NavHostController) {
                 val couponId = backStackEntry.arguments?.getLong("couponId") ?: return@composable
                 CouponDetailsScreen(
                     couponId = couponId,
+                    onOdbierz = { couponId ->
+                        navController.navigate(Screen.CouponOdbierz.createRoute(couponId))
+                    },
                     popBack = { navController.popBackStack() }
+                )
+            }
+
+            composable(
+                route = Screen.CouponOdbierz.route,
+                arguments = listOf(navArgument("couponId") { type = NavType.LongType })
+            ) { backStackEntry ->
+                val couponId = backStackEntry.arguments?.getLong("couponId") ?: return@composable
+                val parentEntry = remember { navController.getBackStackEntry("cart_nav_graph") }
+                val cartViewModel: CartViewModel = hiltViewModel(parentEntry)
+                CouponOdbierzScreen(
+                    couponId = couponId,
+                    onOdbierz = {
+                        navController.navigate(Screen.SummaryCart.route)
+                    },
+                    popBack = { navController.popBackStack() },
+                    viewModel = cartViewModel
                 )
             }
 

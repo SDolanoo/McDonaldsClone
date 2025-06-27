@@ -19,7 +19,6 @@ import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
@@ -28,7 +27,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DropdownMenu
@@ -39,7 +37,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.OutlinedTextFieldDefaults.contentPadding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -61,19 +58,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.mcdonaldsclone.core.database.fakeData.FakeDataProvider
 import com.example.mcdonaldsclone.core.database.model.MenuItem
-import com.example.mcdonaldsclone.features.cart.components.BottomBarButton
-import com.example.mcdonaldsclone.features.cart.composables.CategoryDetailsContent
-import com.example.mcdonaldsclone.features.cart.composables.ChooseZestaw1stStepContent
-import com.example.mcdonaldsclone.features.cart.composables.ChooseZestaw2ndStepContent
-import com.example.mcdonaldsclone.features.cart.composables.ChooseZestawContent
-import com.example.mcdonaldsclone.features.cart.composables.ChooseZestawFinalStepContent
-import com.example.mcdonaldsclone.features.cart.composables.MainContent
-import com.example.mcdonaldsclone.features.cart.composables.ProductDetailsContent
-import com.example.mcdonaldsclone.features.cart.composables.ProductWithExtrasContent
+import com.example.mcdonaldsclone.core.composables.BottomBarButton
 import com.example.mcdonaldsclone.features.cart.viewModel.CartViewModel
-import org.apache.commons.math3.stat.StatUtils.product
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
