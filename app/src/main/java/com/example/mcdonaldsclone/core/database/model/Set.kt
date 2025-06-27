@@ -7,7 +7,7 @@ data class Set(
     val listMenuItems: List<MenuItem> = emptyList(),
     @DrawableRes val imageResId: Int = R.drawable.ic_launcher_background,
     val price: Double = 0.0,
-    val quantity: Int = 1
+    var quantity: Int = 1
 ) {
     companion object {
         val EMPTY = Set()

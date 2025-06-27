@@ -1,26 +1,22 @@
 package com.example.mcdonaldsclone.features.cart.viewModel
 
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateMapOf
 import androidx.lifecycle.ViewModel
 import com.example.mcdonaldsclone.core.database.fakeData.FakeDataProvider
 import com.example.mcdonaldsclone.core.database.model.MenuItem
 import com.example.mcdonaldsclone.core.database.model.Set
-import com.example.mcdonaldsclone.core.database.model.archiveModel.CartItem
-import com.example.mcdonaldsclone.core.database.model.archiveModel.Product
-import com.example.mcdonaldsclone.core.navigation.Screen
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
 @HiltViewModel
 class CartViewModel @Inject constructor(
     private val fakeData: FakeDataProvider,
 ): ViewModel() {
-    val setsInCart = mutableStateListOf<Set>()
+    private val _setsInCart = MutableStateFlow<List<Set>>(emptyList())
+    val setsInCart: StateFlow<List<Set>> = _setsInCart
+
     val menuItemsInCart = mutableStateListOf<Pair<MenuItem, Int>>()
 
 
@@ -84,6 +80,18 @@ class CartViewModel @Inject constructor(
         _composingSet.value = _composingSet.value.copy(listMenuItems = updatedItems)
     }
 
+    fun addNewItemToSetsInCart(set: Set) {
+        _setsInCart.value = _setsInCart.value + set
+    }
+
+    fun removeSetFromSetsInCart(set: Set) {
+        _setsInCart.value = _setsInCart.value - set
+    }
+
+    fun addComposingSetToSets() {
+        _setsInCart.value = _setsInCart.value + _composingSet.value
+    }
+
 
     fun replaceComposingSet(newSet: Set) {
         // This makes sure we don't carry over any old items
@@ -95,7 +103,7 @@ class CartViewModel @Inject constructor(
         )
     }
 
-    fun addMenuItemToNewSet(menuItem: MenuItem) {
+    fun addMenuItemToComposingSet(menuItem: MenuItem) {
         // If the current set is EMPTY, give it a temp id or name
         val current = _composingSet.value
         val updatedItems = current.listMenuItems + menuItem

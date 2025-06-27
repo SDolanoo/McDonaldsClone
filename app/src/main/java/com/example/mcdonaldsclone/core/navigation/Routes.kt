@@ -13,6 +13,9 @@ sealed class Screen(val route: String) {
     }
 
     object ZamowIOdbierz : Screen("zamowIOdbierz")
+
+    object SummaryCart: Screen("summaryCart")
+
     object Loyalty : Screen("loyalty")
     object LoyaltyDetails : Screen("loyalty/{loyaltyItemId}") {
         fun createRoute(loyaltyItemId: Long) = "loyalty/$loyaltyItemId"
