@@ -112,25 +112,25 @@ fun CouponOdbierzScreen(
 
                 Spacer(modifier = Modifier.height(8.dp))
 
-                Box(
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(50))
-                        .background(
-                            Brush.horizontalGradient(
-                                listOf(
-                                    Color.Magenta,
-                                    Color(0xFFFFA500)
-                                )
-                            )
-                        )
-                        .padding(horizontal = 12.dp, vertical = 4.dp)
-                ) {
-                    Text(
-                        text = coupon.toString(),
-                        style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
-                        color = Color.White
-                    )
-                }
+//                Box(
+//                    modifier = Modifier
+//                        .clip(RoundedCornerShape(50))
+//                        .background(
+//                            Brush.horizontalGradient(
+//                                listOf(
+//                                    Color.Magenta,
+//                                    Color(0xFFFFA500)
+//                                )
+//                            )
+//                        )
+//                        .padding(horizontal = 12.dp, vertical = 4.dp)
+//                ) {
+//                    Text(
+//                        text = coupon.toString(),
+//                        style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
+//                        color = Color.White
+//                    )
+//                }
             }
 
             coupon.set.listMenuItems.forEach { item ->
