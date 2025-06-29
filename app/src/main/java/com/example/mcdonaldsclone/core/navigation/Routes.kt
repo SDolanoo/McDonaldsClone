@@ -26,4 +26,5 @@ sealed class Screen(val route: String) {
     object Settings : Screen("settings")
     object MojeM : Screen("mojeM")
     object QR : Screen("QR")
+    object MakeOrder : Screen("makeOrder")
 }

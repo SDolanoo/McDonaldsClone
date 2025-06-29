@@ -2,11 +2,14 @@ package com.example.mcdonaldsclone.features.makeOrder
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -25,80 +28,82 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.google.firebase.crashlytics.buildtools.reloc.com.google.common.collect.Multimaps.index
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun StepperTopAppBar(
-    currentStep: Int, // 0, 1, or 2
+    currentStep: Int,
     scrollBehavior: TopAppBarScrollBehavior,
     onBackClick: () -> Unit
 ) {
     val steps = listOf("Wybierz", "Potwierdź i zapłać", "Odbierz")
 
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(Color.White)
-    ) {
-        TopAppBar(
-            navigationIcon = {
-                IconButton(onClick = {onBackClick()}) {
-                    Icon(
-                        imageVector = Icons.Default.ArrowBack,
-                        contentDescription = "Wróć"
-                    )
-                }
-            },
-            title = { Text(text = "") },
-            scrollBehavior = scrollBehavior,
-        )
-
-        Row(
-            modifier = Modifier
-                .padding(horizontal = 16.dp)
-                .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            steps.forEachIndexed { index, label ->
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier.weight(1f)
+    TopAppBar(
+        navigationIcon = {
+            IconButton(onClick = onBackClick) {
+                Icon(
+                    imageVector = Icons.Default.ArrowBack,
+                    contentDescription = "Wróć"
+                )
+            }
+        },
+        title = {
+            Column(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                // 🔹 GÓRNY RZĄD – Teksty
+                Row(
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = 15.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
-                    Text(
-                        text = label,
-                        fontWeight = if (index == currentStep) FontWeight.Bold else FontWeight.Normal,
-                        color = Color.Black,
-                        fontSize = 14.sp
-                    )
-
-                    Spacer(modifier = Modifier.height(4.dp))
-
-                    // Punkt
-                    Canvas(modifier = Modifier.size(10.dp)) {
-                        drawCircle(
-                            color = when (index) {
-                                currentStep -> Color(0xFFFFC107) // Żółty
-                                else -> Color.LightGray
-                            }
+                    steps.forEachIndexed { index, label ->
+                        Text(
+                            text = label,
+                            fontWeight = if (index == currentStep) FontWeight.Bold else FontWeight.Normal,
+                            fontSize = if (label == "Potwierdź i zapłać") 12.sp else 14.sp,
+                            color = Color.Black,
+                            maxLines = 1,
+                            modifier = Modifier.weight(1f),
+                            textAlign = if (index == 0) {TextAlign.Start} else if (index == 2) {TextAlign.End} else {TextAlign.Center}
                         )
                     }
                 }
 
-                // Linia między punktami
-                if (index < steps.lastIndex) {
-                    Spacer(modifier = Modifier.width(4.dp))
-                    Divider(
-                        modifier = Modifier
-                            .weight(1f)
-                            .height(1.dp)
-                            .align(Alignment.CenterVertically),
-                        color = Color.LightGray
-                    )
-                    Spacer(modifier = Modifier.width(4.dp))
+                Spacer(modifier = Modifier.height(4.dp))
+
+                // 🔸 DOLNY RZĄD – Kropki i linie
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    steps.forEachIndexed { index, _ ->
+                        Box(
+                            modifier = Modifier.weight(1f),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Canvas(modifier = Modifier.size(8.dp)) {
+                                drawCircle(
+                                    color = if (index <= currentStep) Color(0xFFFFC107) else Color.LightGray
+                                )
+                            }
+                        }
+
+                        if (index < steps.lastIndex) {
+                            Divider(
+                                color = if (index + 1 <= currentStep) Color(0xFFFFC107) else Color.LightGray,
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .height(1.dp)
+                            )
+                        }
+                    }
                 }
             }
-        }
-    }
+        },
+        scrollBehavior = scrollBehavior
+    )
 }

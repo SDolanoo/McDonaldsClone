@@ -21,6 +21,7 @@ import com.example.mcdonaldsclone.features.loyalty.LoyaltyCardsScreen
 import com.example.mcdonaldsclone.features.mojeM.MojeMScreen
 import com.example.mcdonaldsclone.features.cart.view.SummaryCartScreen
 import com.example.mcdonaldsclone.features.coupons.CouponOdbierzScreen
+import com.example.mcdonaldsclone.features.makeOrder.MakeOrderScreen
 
 @SuppressLint("UnrememberedGetBackStackEntry")
 @Composable
@@ -58,6 +59,7 @@ fun AppNavGraph(navController: NavHostController) {
                 val cartViewModel: CartViewModel = hiltViewModel(parentEntry)
                 SummaryCartScreen(
                     goToZamowIOdbierz = {navController.navigate(Screen.ZamowIOdbierz.route)},
+                    onMakeOrder = { navController.navigate(Screen.MakeOrder.route) },
                     cartViewModel
                 )
 
@@ -77,6 +79,12 @@ fun AppNavGraph(navController: NavHostController) {
 //            CouponsScreen(onCouponClick = { couponId ->
 //                navController.navigate(Screen.CouponDetails.createRoute(couponId))
 //            })
+            }
+
+            composable(Screen.MakeOrder.route) {
+                MakeOrderScreen(
+                    onBackClick = {navController.navigate(Screen.ZamowIOdbierz.route)}
+                )
             }
 
             composable(Screen.QR.route) {

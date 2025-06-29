@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 import com.example.mcdonaldsclone.core.navigation.AppNavGraph
+import com.example.mcdonaldsclone.features.makeOrder.MakeOrderScreen
 import com.example.mcdonaldsclone.ui.theme.McDonaldsCloneTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -46,5 +47,6 @@ fun CardShowcasePreview() {
         AppNavGraph(
             navController = navController
         )
+
     }
 }

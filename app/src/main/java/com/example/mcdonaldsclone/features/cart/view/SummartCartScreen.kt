@@ -66,6 +66,7 @@ import com.example.mcdonaldsclone.features.cart.viewModel.CartViewModel
 @Composable
 fun SummaryCartScreen(
     goToZamowIOdbierz: () -> Unit,
+    onMakeOrder: () -> Unit,
     viewModel: CartViewModel
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
@@ -107,7 +108,7 @@ fun SummaryCartScreen(
                 BottomBarButton(
                     text = "Wybierz miejsce odbioru",
                     modifier = Modifier.weight(1f),
-                    onClick = {},
+                    onClick = { onMakeOrder() },
                 )
 
             }
