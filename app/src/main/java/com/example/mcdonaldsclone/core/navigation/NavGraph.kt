@@ -48,6 +48,7 @@ fun AppNavGraph(navController: NavHostController) {
                 val cartViewModel: CartViewModel = hiltViewModel(parentEntry)
                 ZamowIOdbierzScreen(
                     onNavigateToSymmaryCart = {navController.navigate(Screen.SummaryCart.route)},
+                    goBack = {navController.navigate(Screen.Home.route)},
                     cartViewModel,
 
                 )
@@ -137,13 +138,17 @@ fun AppNavGraph(navController: NavHostController) {
             ) { backStackEntry ->
                 val loyaltyItemId =
                     backStackEntry.arguments?.getLong("loyaltyItemId") ?: return@composable
-
+                val parentEntry = remember { navController.getBackStackEntry("cart_nav_graph") }
+                val cartViewModel: CartViewModel = hiltViewModel(parentEntry)
                 LoyaltyCardDetailsScreen(
                     loyaltyItemId = loyaltyItemId,
-                    popBack = { navController.popBackStack() }
+                    onOdbierz = {
+                        navController.navigate(Screen.SummaryCart.route)
+                    },
+                    popBack = { navController.popBackStack() },
+                    viewModel = cartViewModel
                 )
             }
         }
-        // Analogicznie dla menu, cart, loyalty itd.
     }
 }

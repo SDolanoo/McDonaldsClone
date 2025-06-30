@@ -38,12 +38,16 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import com.example.mcdonaldsclone.core.database.fakeData.FakeDataProvider
 import com.example.mcdonaldsclone.core.database.model.LoyaltyItem
+import com.example.mcdonaldsclone.core.database.model.Set
+import com.example.mcdonaldsclone.features.cart.viewModel.CartViewModel
 
 
 @Composable
 fun LoyaltyCardDetailsScreen(
     loyaltyItemId: Long,
-    popBack: () -> Unit
+    onOdbierz: () -> Unit,
+    popBack: () -> Unit,
+    viewModel: CartViewModel
 ) {
     val item: LoyaltyItem = requireNotNull(FakeDataProvider.loyaltyItems.find { it.id == loyaltyItemId })
 
@@ -161,7 +165,17 @@ fun LoyaltyCardDetailsScreen(
 
         // Przycisk Odbierz
         Button(
-            onClick = { /* TODO */ },
+            onClick = {
+                viewModel.addNewItemToSetsInCart(
+                    Set(
+                        listMenuItems = item.set.listMenuItems,
+                        imageResId = item.set.imageResId,
+                        price = item.set.price,
+                        quantity = item.set.quantity
+                    )
+                )
+                onOdbierz()
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp)

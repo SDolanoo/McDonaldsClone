@@ -43,10 +43,11 @@ fun CardShowcasePreview() {
         darkTheme = false,
         dynamicColor = false
     ) {
-        val navController = rememberNavController()
-        AppNavGraph(
-            navController = navController
-        )
+//        val navController = rememberNavController()
+//        AppNavGraph(
+//            navController = navController
+//        )
+        MakeOrderScreen()
 
     }
 }

@@ -62,6 +62,7 @@ import com.example.mcdonaldsclone.R
 @Composable
 fun ZamowIOdbierzScreen(
     onNavigateToSymmaryCart: () -> Unit,
+    goBack: () -> Unit,
     viewModel: CartViewModel
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
@@ -89,7 +90,7 @@ fun ZamowIOdbierzScreen(
                     )
                 },
                 navigationIcon = {
-                    IconButton(onClick = {currentlyViewing = "main"}) {
+                    IconButton(onClick = {if (currentlyViewing == "main") goBack() else currentlyViewing = "main"}) {
                         Icon(
                             imageVector = Icons.Default.Close,
                             contentDescription = "Wróć",

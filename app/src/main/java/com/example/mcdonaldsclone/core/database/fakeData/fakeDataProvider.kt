@@ -145,15 +145,15 @@ object FakeDataProvider {
             false,
             "10:30",
             "05:00",
-                    Set(
-                    listMenuItems = listOf(
-                        menuItems.find { it.id == 14L }!!,
-                        menuItems.find { it.id == 108L }!!
-                    ),
-            imageResId = R.drawable.zestaw2,
-            price = 37.00,
-            quantity = 1,
-        )
+            Set(
+                listMenuItems = listOf(
+                    menuItems.find { it.id == 14L }!!,
+                    menuItems.find { it.id == 108L }!!
+                ),
+                imageResId = R.drawable.zestaw2,
+                price = 37.00,
+                quantity = 1,
+            )
         ),
     )
 
@@ -188,13 +188,56 @@ object FakeDataProvider {
     )
 
     val loyaltyItems = listOf(
-        LoyaltyItem(id = 1, title = "Sos śmietanowy", R.drawable.kupon7, points = 250),
-        LoyaltyItem(id = 2, title = "Sos słodko-kwaśny", R.drawable.kupon6, points = 250),
-        LoyaltyItem(id = 3, title = "McPops orzechowy", R.drawable.kupon5,  points = 500),
-        LoyaltyItem(id = 4, title = "Cheeseburger", R.drawable.kupon, points = 1150),
-        LoyaltyItem(id = 5, title = "McRoyal", R.drawable.kupon2, points = 2950),
-        LoyaltyItem(id = 6, title = "Małe frytki", R.drawable.kupon3, points = 750),
-        LoyaltyItem(id = 7, title = "Mały napój", R.drawable.kupon4, points = 700)
+        LoyaltyItem(id = 1, title = "Sos śmietanowy", R.drawable.kupon7, points = 250,
+            Set(
+                listMenuItems = listOf(
+                    menuItems.find { it.id == 204L }!!
+                ),
+                imageResId = R.drawable.kupon7,
+                price = 00.00,
+                quantity = 1,
+            )
+        ),
+        LoyaltyItem(id = 2, title = "Sos słodko-kwaśny", R.drawable.kupon6, points = 250,
+            Set(
+                listMenuItems = listOf(
+                    menuItems.find { it.id == 206L }!!
+                ),
+                imageResId = R.drawable.kupon6,
+                price = 00.00,
+                quantity = 1,
+            )
+        ),
+        LoyaltyItem(id = 4, title = "Cheeseburger", R.drawable.kupon, points = 1150,
+            Set(
+                listMenuItems = listOf(
+                    menuItems.find { it.id == 7L }!!
+                ),
+                imageResId = R.drawable.kupon,
+                price = 00.00,
+                quantity = 1,
+            )
+        ),
+        LoyaltyItem(id = 5, title = "McRoyal", R.drawable.kupon2, points = 2950,
+            Set(
+                listMenuItems = listOf(
+                    menuItems.find { it.id == 2L }!!
+                ),
+                imageResId = R.drawable.kupon2,
+                price = 00.00,
+                quantity = 1,
+            )
+        ),
+        LoyaltyItem(id = 6, title = "Małe frytki", R.drawable.kupon3, points = 750,
+            Set(
+                listMenuItems = listOf(
+                    menuItems.find { it.id == 108L }!!
+                ),
+                imageResId = R.drawable.kupon3,
+                price = 0.00,
+                quantity = 1,
+            )
+        )
     )
 
     val loyaltyPoints = LoyaltyPoints(currentPoints = 150)
