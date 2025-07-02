@@ -27,6 +27,8 @@ Projekt nie wykorzystuje backendu – dane są przechowywane lokalnie.
 ---
 
 ## 🗂️ Struktura projektu
+app/src/main/java/com/example/mcdonaldsclone
+
 app/
 core/
 ├── composables/
@@ -42,3 +44,7 @@ features/
 ├── makeOrder/
 ├── mojeM/
 └── QRCode/
+
+## 🧪 Testy
+
+app/src/test/java/com/example/mcdonaldsclone
