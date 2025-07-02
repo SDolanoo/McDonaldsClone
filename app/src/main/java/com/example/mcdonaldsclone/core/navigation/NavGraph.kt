@@ -12,6 +12,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import com.example.mcdonaldsclone.features.QRCode.QRCodeScreen
+import com.example.mcdonaldsclone.features.QRCode.QRCodeViewModel
 import com.example.mcdonaldsclone.features.cart.view.ZamowIOdbierzScreen
 import com.example.mcdonaldsclone.features.cart.viewModel.CartViewModel
 import com.example.mcdonaldsclone.features.coupons.CouponDetailsScreen
@@ -36,7 +37,7 @@ fun AppNavGraph(navController: NavHostController) {
         ) {
             composable(Screen.Home.route) {
                 HomeScreen(
-                    onNavigateToCoupons = { navController.navigate(Screen.MojeM.route) },
+                    onNavigateToCoupons = { navController.navigate(Screen.Loyalty.route) },
                     onNavigateToQR = { navController.navigate(Screen.QR.route) },
                     onNavigateToZamowIOdbierz = { navController.navigate(Screen.ZamowIOdbierz.route) },
                     onNavigateToMojeM = { navController.navigate(Screen.MojeM.route) }
@@ -67,12 +68,15 @@ fun AppNavGraph(navController: NavHostController) {
             }
 
             composable(Screen.MojeM.route) {
+                val parentEntry = remember { navController.getBackStackEntry("cart_nav_graph") }
+                val qRCodeViewModel: QRCodeViewModel = hiltViewModel(parentEntry)
                 MojeMScreen(
                     onNavigateToCoupons = { couponId ->
                         navController.navigate(Screen.CouponDetails.createRoute(couponId))
                     },
                     onNavigateToLoyalty = { navController.navigate(Screen.Loyalty.route) },
-                    onNavigateToQR = { navController.navigate(Screen.QR.route) }
+                    onNavigateToQR = { navController.navigate(Screen.QR.route) },
+                    viewModel = qRCodeViewModel
                 )
             }
 
@@ -83,7 +87,12 @@ fun AppNavGraph(navController: NavHostController) {
             }
 
             composable(Screen.QR.route) {
-                QRCodeScreen(popBack = { navController.popBackStack() })
+                val parentEntry = remember { navController.getBackStackEntry("cart_nav_graph") }
+                val qRCodeViewModel: QRCodeViewModel = hiltViewModel(parentEntry)
+                QRCodeScreen(
+                    popBack = { navController.popBackStack() },
+                    viewModel = qRCodeViewModel
+                    )
             }
 
             composable(

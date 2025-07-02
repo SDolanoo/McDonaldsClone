@@ -1,4 +1,4 @@
-package com.example.mcdonaldsclone.features.cart.composables
+package com.example.mcdonaldsclone.core.composables
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -40,7 +40,6 @@ import androidx.compose.ui.unit.dp
 import com.example.mcdonaldsclone.core.database.fakeData.FakeDataProvider
 import com.example.mcdonaldsclone.core.database.model.SubCategory
 import com.example.mcdonaldsclone.core.database.model.MenuItem
-import com.example.mcdonaldsclone.features.cart.components.YellowCheck
 
 @Composable
 fun ChooseZestaw2ndStepContent(

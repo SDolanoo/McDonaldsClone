@@ -7,14 +7,10 @@ import com.example.mcdonaldsclone.core.database.model.Coupon
 import com.example.mcdonaldsclone.core.database.model.LoyaltyItem
 import com.example.mcdonaldsclone.core.database.model.LoyaltyPoints
 import com.example.mcdonaldsclone.core.database.model.MenuItem
-import com.example.mcdonaldsclone.core.database.model.archiveModel.Product
 import com.example.mcdonaldsclone.core.database.model.Promo
 import com.example.mcdonaldsclone.core.database.model.Set
-import com.example.mcdonaldsclone.core.database.model.archiveModel.Sauce
 import com.example.mcdonaldsclone.core.database.model.SubCategory
 import com.example.mcdonaldsclone.core.database.model.UserSettings
-import com.example.mcdonaldsclone.features.cart.composables.CategoryDetailsContent
-import com.example.mcdonaldsclone.core.database.model.archiveModel.Drinks
 import com.example.mcdonaldsclone.core.database.model.archiveModel.ZestawOption
 import kotlin.collections.listOf
 

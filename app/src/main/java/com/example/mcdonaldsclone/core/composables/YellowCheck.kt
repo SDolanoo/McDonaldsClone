@@ -1,4 +1,4 @@
-package com.example.mcdonaldsclone.features.cart.components
+package com.example.mcdonaldsclone.core.composables
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border

@@ -1,4 +1,4 @@
-package com.example.mcdonaldsclone.features.cart.composables
+package com.example.mcdonaldsclone.core.composables
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -34,9 +34,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.mcdonaldsclone.core.database.fakeData.FakeDataProvider
 import com.example.mcdonaldsclone.core.database.model.MenuItem
-import com.example.mcdonaldsclone.core.database.model.Set
 import com.example.mcdonaldsclone.features.cart.viewModel.CartViewModel
-import androidx.compose.runtime.setValue
 import androidx.compose.runtime.getValue
 
 @Composable

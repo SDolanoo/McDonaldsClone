@@ -1,6 +1,5 @@
-package com.example.mcdonaldsclone.features.cart.composables
+package com.example.mcdonaldsclone.core.composables
 
-import android.R.attr.onClick
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -19,14 +18,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -43,13 +36,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.mcdonaldsclone.R
 import com.example.mcdonaldsclone.core.database.fakeData.FakeDataProvider
 import com.example.mcdonaldsclone.core.database.model.MenuItem
-import com.example.mcdonaldsclone.core.database.model.archiveModel.ZestawOption
-import com.example.mcdonaldsclone.features.cart.components.YellowCheck
-import com.google.firebase.crashlytics.buildtools.reloc.com.google.common.collect.Multimaps.index
-import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.client.methods.RequestBuilder.options
 
 @Composable
 fun ChooseZestawContent(

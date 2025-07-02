@@ -46,14 +46,14 @@ import com.example.mcdonaldsclone.core.database.fakeData.FakeDataProvider
 import com.example.mcdonaldsclone.core.database.model.MenuItem
 import com.example.mcdonaldsclone.core.database.model.Set
 import com.example.mcdonaldsclone.core.composables.BottomBarButton
-import com.example.mcdonaldsclone.features.cart.composables.CategoryDetailsContent
-import com.example.mcdonaldsclone.features.cart.composables.ChooseZestaw1stStepContent
-import com.example.mcdonaldsclone.features.cart.composables.ChooseZestaw2ndStepContent
-import com.example.mcdonaldsclone.features.cart.composables.ChooseZestawContent
-import com.example.mcdonaldsclone.features.cart.composables.ChooseZestawFinalStepContent
-import com.example.mcdonaldsclone.features.cart.composables.MainContent
-import com.example.mcdonaldsclone.features.cart.composables.ProductDetailsContent
-import com.example.mcdonaldsclone.features.cart.composables.ProductWithExtrasContent
+import com.example.mcdonaldsclone.core.composables.CategoryDetailsContent
+import com.example.mcdonaldsclone.core.composables.ChooseZestaw1stStepContent
+import com.example.mcdonaldsclone.core.composables.ChooseZestaw2ndStepContent
+import com.example.mcdonaldsclone.core.composables.ChooseZestawContent
+import com.example.mcdonaldsclone.core.composables.ChooseZestawFinalStepContent
+import com.example.mcdonaldsclone.core.composables.MainContent
+import com.example.mcdonaldsclone.core.composables.ProductDetailsContent
+import com.example.mcdonaldsclone.core.composables.ProductWithExtrasContent
 import com.example.mcdonaldsclone.features.cart.viewModel.CartViewModel
 import com.example.mcdonaldsclone.R
 

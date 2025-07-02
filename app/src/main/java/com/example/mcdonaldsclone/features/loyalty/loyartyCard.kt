@@ -33,7 +33,8 @@ fun LoyaltyCard(
     Card(
         modifier = modifier
             .height(220.dp)
-            .width(120.dp)
+            .width(140.dp)
+            .padding(start = 2.dp)
             .clickable { onClick() },
         shape = RoundedCornerShape(12.dp),
         elevation = CardDefaults.cardElevation(6.dp),
@@ -53,8 +54,8 @@ fun LoyaltyCard(
                 painter = painterResource(image),
                 contentDescription = null,
                 modifier = Modifier
-                    .height(160.dp)
-                    .fillMaxWidth(),
+                    .height(150.dp)
+                    .width(140.dp),
                 contentScale = ContentScale.Crop
             )
             Spacer(modifier = Modifier.height(8.dp))

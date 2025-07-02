@@ -1,6 +1,5 @@
-package com.example.mcdonaldsclone.features.cart.composables
+package com.example.mcdonaldsclone.core.composables
 
-import android.R.attr.category
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.PaddingValues
@@ -29,9 +28,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.mcdonaldsclone.core.database.fakeData.FakeDataProvider
-import com.example.mcdonaldsclone.core.database.model.Category
-import com.example.mcdonaldsclone.core.database.model.MenuItem
-import kotlin.collections.forEach
 
 @Composable
 fun ChooseZestaw1stStepContent(

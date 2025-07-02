@@ -1,13 +1,11 @@
-package com.example.mcdonaldsclone.features.cart.composables
+package com.example.mcdonaldsclone.core.composables
 
-import android.R.attr.category
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
@@ -22,54 +20,37 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.mcdonaldsclone.R
 import com.example.mcdonaldsclone.core.database.fakeData.FakeDataProvider
-import com.example.mcdonaldsclone.core.database.model.Category
 import com.example.mcdonaldsclone.core.database.model.MenuItem
-import com.example.mcdonaldsclone.core.database.model.archiveModel.Product
 
 @Composable
-fun MainContent(
+fun CategoryDetailsContent(
     innerPadding: PaddingValues,
-    moveToCategoryDetails: (Long) -> Unit
+    categoryId: Long,
+    moveToProductContent: (Long) -> Unit
 ) {
-    val listaKategorii: List<Category> = FakeDataProvider.categories
-    val products: List<MenuItem> = FakeDataProvider.menuItems
+    val listProduct: List<MenuItem> = FakeDataProvider.menuItems.filter { it.categoryId == categoryId }
     LazyVerticalStaggeredGrid(
         columns = StaggeredGridCells.Fixed(1),
         modifier = Modifier.fillMaxSize(),
         contentPadding = innerPadding,
         verticalItemSpacing = 2.dp,
     ) {
-        item {
-            Text(
-                text = "Odkryj nasze menu",
-                style = MaterialTheme.typography.bodyMedium,
-                color = Color.Black,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(start = 24.dp, top = 24.dp)
-            )
-        }
-        item{
-            Spacer(Modifier.height(5.dp))
-        }
-
-        listaKategorii.forEach { category ->
+        listProduct.forEach { product ->
             item {
-                if (category.id > 2) {
+                if (product.id > 1) {
                     HorizontalDivider(thickness = 1.dp)
                 }
             }
             item {
 
                 ListItem(
-                    modifier = Modifier.clickable {moveToCategoryDetails(category.id.toLong())},
+                    modifier = Modifier.clickable {moveToProductContent(product.id)},
                     leadingContent = {
                         Image(
-                            painter = painterResource(id = category.imageResId), // Podmień na swoje źródło
+                            painter = painterResource(id = product.imageResId), // Podmień na swoje źródło
                             contentDescription = null,
                             contentScale = ContentScale.Crop,
                             modifier = Modifier
@@ -79,16 +60,23 @@ fun MainContent(
                     },
                     headlineContent = {
                         Text(
-                            text = category.name,
+                            text = product.name,
                             style = MaterialTheme.typography.titleMedium,
                             fontWeight = FontWeight.Bold,
+                            color = Color.Black
+                        )
+                    },
+                    supportingContent = {
+                        Text(
+                            text = "%.2f zł".format(product.basePrice),
+                            style = MaterialTheme.typography.bodyMedium,
                             color = Color.Black
                         )
                     }
                 )
             }
             item {
-                if (category.id.toInt()== listaKategorii.size - 1) {
+                if (product.id.toInt() == listProduct.size - 1) {
                     Spacer(modifier = Modifier.height(10.dp))
                 }
             }

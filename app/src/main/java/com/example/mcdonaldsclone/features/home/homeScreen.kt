@@ -58,7 +58,7 @@ fun HomeScreen(
                         painter = painterResource(R.drawable.icon6),
                         contentDescription = null,
                         contentScale = ContentScale.Crop,
-                        modifier = Modifier.size(48.dp)
+                        modifier = Modifier.size(48.dp).clickable { onNavigateToQR() }
                     )
                 },
                 navigationIcon = {
@@ -68,7 +68,7 @@ fun HomeScreen(
                         contentScale = ContentScale.Crop,
                         modifier = Modifier
                             .fillMaxHeight()
-                            .clickable { onNavigateToQR() }
+
                     )
                 },
                 actions = {
@@ -119,7 +119,7 @@ fun HomeScreen(
                         Spacer(modifier = Modifier.weight(1f))
                         SmallCard(
                             imageResId = R.drawable.icon2,
-                            text = "MojeM Nagrody",
+                            text = "MojeM",
                             onClick = { onNavigateToMojeM() }
                         )
                         Spacer(modifier = Modifier.weight(1f))

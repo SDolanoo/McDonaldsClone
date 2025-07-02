@@ -58,7 +58,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.mcdonaldsclone.R
 import com.example.mcdonaldsclone.core.composables.BottomBarButton
-import com.example.mcdonaldsclone.features.cart.components.YellowCheck
+import com.example.mcdonaldsclone.core.composables.StepperTopAppBar
+import com.example.mcdonaldsclone.core.composables.YellowCheck
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -78,7 +79,10 @@ fun MakeOrderScreen(
 
     Scaffold(
         topBar = {
-           StepperTopAppBar(currentStep = currentState, scrollBehavior = scrollBehavior, onBackClick = { onBackClick() })
+            StepperTopAppBar(
+                currentStep = currentState,
+                scrollBehavior = scrollBehavior,
+                onBackClick = { onBackClick() })
         },
         bottomBar = {
             Row(

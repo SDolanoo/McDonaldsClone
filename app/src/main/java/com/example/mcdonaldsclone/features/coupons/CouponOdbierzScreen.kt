@@ -17,7 +17,6 @@ import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -37,7 +36,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -48,8 +46,7 @@ import com.example.mcdonaldsclone.core.database.fakeData.FakeDataProvider
 import com.example.mcdonaldsclone.core.database.model.Coupon
 import com.example.mcdonaldsclone.core.database.model.MenuItem
 import com.example.mcdonaldsclone.core.database.model.Set
-import com.example.mcdonaldsclone.core.database.model.archiveModel.Sauce
-import com.example.mcdonaldsclone.features.cart.composables.ProductWithExtrasContent
+import com.example.mcdonaldsclone.core.composables.ProductWithExtrasContent
 import com.example.mcdonaldsclone.features.cart.viewModel.CartViewModel
 
 @Composable

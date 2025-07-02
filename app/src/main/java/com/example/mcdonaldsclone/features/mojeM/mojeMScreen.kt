@@ -1,5 +1,6 @@
 package com.example.mcdonaldsclone.features.mojeM
 
+import android.graphics.Bitmap
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -35,10 +36,15 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -46,8 +52,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.mcdonaldsclone.R
 import com.example.mcdonaldsclone.core.database.fakeData.FakeDataProvider
+import com.example.mcdonaldsclone.features.QRCode.QRCodeViewModel
 import com.example.mcdonaldsclone.features.loyalty.LoyaltyCard
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -55,17 +64,14 @@ import com.example.mcdonaldsclone.features.loyalty.LoyaltyCard
 fun MojeMScreen(
     onNavigateToCoupons: (Long) -> Unit,
     onNavigateToLoyalty: () -> Unit,
-    onNavigateToQR: () -> Unit
+    onNavigateToQR: () -> Unit,
+    viewModel: QRCodeViewModel
 ){
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    titleContentColor = MaterialTheme.colorScheme.primary,
-                ),
                 title = {
                     Text(
                         "",
@@ -96,7 +102,8 @@ fun MojeMScreen(
             innerPadding,
             onNavigateToCoupons = { couponId ->  onNavigateToCoupons(couponId) },
             onNavigateToLoyalty = { onNavigateToLoyalty() },
-            onNavigateToQR = { onNavigateToQR() }
+            onNavigateToQR = { onNavigateToQR() },
+            viewModel = viewModel
         )
     }
 }
@@ -106,11 +113,13 @@ fun ScrollContent(
     innerPadding: PaddingValues,
     onNavigateToCoupons: (Long) -> Unit,
     onNavigateToLoyalty: () -> Unit,
-    onNavigateToQR: () -> Unit
+    onNavigateToQR: () -> Unit,
+    viewModel: QRCodeViewModel
 ) {
     LazyColumn(
         modifier = Modifier
-            .fillMaxSize(),
+            .fillMaxSize()
+            .padding(innerPadding),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         item {
@@ -118,7 +127,8 @@ fun ScrollContent(
                 modifier = Modifier,
                 topText = "M 408 465",
                 bottomText = "Zeskanuj kod, aby zbierać punkty",
-                onClick = { onNavigateToQR() }
+                onClick = { onNavigateToQR() },
+                viewModel = viewModel
             )
         }
 
@@ -131,7 +141,8 @@ fun ScrollContent(
                     Text(
                         text = "MojeM Nagrody",
                         style = MaterialTheme.typography.titleLarge,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
+                        color = Color.Black
                     )
                     Text(
                         text = "Zobacz wiecej ->",
@@ -144,7 +155,7 @@ fun ScrollContent(
                 Spacer(modifier = Modifier.height(12.dp))
 
                 LazyRow(
-                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
                 ) {
                     items(items = FakeDataProvider.loyaltyItems.take(4)) { loyaltyItem ->
                         LoyaltyCard(
@@ -160,16 +171,17 @@ fun ScrollContent(
                             verticalArrangement = Arrangement.Center,
                             modifier = Modifier
                                 .padding(end = 12.dp)
-                                .size(width = 160.dp, height = 180.dp)
+                                .size(width = 120.dp, height = 180.dp)
                         ) {
                             IconButton(
                                 onClick = { onNavigateToLoyalty() },
                                 modifier = Modifier
                                     .size(48.dp)
                                     .background(
-                                        color = Color(0xFF2E7D32),
+                                        color = Color(0xFFFFC000),
                                         shape = CircleShape
                                     )
+                                    .padding(top = 12.dp)
                             ) {
                                 Icon(
                                     imageVector = Icons.AutoMirrored.Filled.ArrowForward,
@@ -181,7 +193,10 @@ fun ScrollContent(
                             Text(
                                 text = "Zobacz więcej",
                                 style = MaterialTheme.typography.labelMedium,
-                                textAlign = TextAlign.Center
+                                textAlign = TextAlign.Center,
+                                fontWeight = FontWeight.Bold,
+                                color = Color.Black,
+                                fontSize = 12.sp
                             )
                         }
                     }
@@ -197,7 +212,8 @@ fun ScrollContent(
                 Text(
                     text = "MojeM okazYEAH!",
                     style = MaterialTheme.typography.titleLarge,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    color = Color.Black
                 )
                 Spacer(modifier = Modifier.height(12.dp))
             }
@@ -226,8 +242,17 @@ fun CardQR(
     modifier: Modifier = Modifier,
     topText: String,
     bottomText: String,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    viewModel: QRCodeViewModel
 ) {
+    val qrBitmap = remember { mutableStateOf<Bitmap?>(null) }
+
+    LaunchedEffect(Unit) {
+        qrBitmap.value = viewModel.generateQRCodeBitmap()
+    }
+
+    val code by viewModel.code
+
     Card(
         modifier = modifier
             .fillMaxWidth()
@@ -239,7 +264,7 @@ fun CardQR(
             )
             .clickable { onClick() },
         shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = Color(0xFFFFEB3B)), // żółte tło
+        colors = CardDefaults.cardColors(containerColor = Color(0xFFFFC000)), // żółte tło
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
     ) {
         Column(
@@ -255,19 +280,34 @@ fun CardQR(
                     .padding(vertical = 16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Box(
+                Card(
                     modifier = Modifier
-                        .size(100.dp)
-                        .clip(RoundedCornerShape(12.dp))
-                        .background(Color(0xFF2E7D32))
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-                Text(
-                    text = topText,
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = Color.Black,
-                    textAlign = TextAlign.Center
-                )
+                        .height(200.dp),
+                    shape = RoundedCornerShape(12.dp),
+                    elevation = CardDefaults.cardElevation(6.dp),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surface,
+                        contentColor = MaterialTheme.colorScheme.onSurface
+                    )
+                ) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        qrBitmap.value?.let {
+                            Image(
+                                bitmap = it.asImageBitmap(),
+                                contentDescription = "QR Code",
+                                modifier = Modifier.size(150.dp)
+                            )
+                            Spacer(modifier = Modifier.height(2.dp))
+                            Text(
+                                text = code,
+                                textAlign = TextAlign.Center,
+                                fontWeight = FontWeight.Bold,
+                                color = Color.Black,
+                                fontSize = 12.sp,
+                            )
+                        }
+                    }
+                }
             }
 
             Spacer(modifier = Modifier.height(8.dp))
