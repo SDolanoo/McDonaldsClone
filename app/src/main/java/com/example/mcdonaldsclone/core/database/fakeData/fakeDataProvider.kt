@@ -113,7 +113,7 @@ object FakeDataProvider {
                     menuItems.find { it.id == 108L }!!
                 ),
                 imageResId = R.drawable.zestaw1,
-                price = 21.50,
+                price = 34.90,
                 quantity = 1,
             )
         ),
