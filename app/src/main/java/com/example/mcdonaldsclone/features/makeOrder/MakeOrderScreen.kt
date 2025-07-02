@@ -1,5 +1,8 @@
 package com.example.mcdonaldsclone.features.makeOrder
 
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -11,6 +14,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBars
@@ -19,9 +23,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
@@ -38,12 +39,14 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.withFrameNanos
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -65,7 +68,7 @@ fun MakeOrderScreen(
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
     val scope = rememberCoroutineScope()
 
-    var currentState by remember { mutableIntStateOf(1)}
+    var currentState by remember { mutableIntStateOf(0)}
 
     var miejsceOdbioru by remember { mutableStateOf("") }
     var pickupOption by remember { mutableStateOf("") }
@@ -90,11 +93,12 @@ fun MakeOrderScreen(
                         onClick = { currentState = 1},
                         color = if (miejsceOdbioru != "") Color(0xFFFFC107) else Color.LightGray
                     )
-                } else {
+                }
+                if (currentState == 1) {
                     BottomBarButton(
                         text = "Zamawiam i płacę",
                         modifier = Modifier.weight(1f),
-                        onClick = {}
+                        onClick = {currentState = 2}
                     )
                 }
 
@@ -107,10 +111,14 @@ fun MakeOrderScreen(
                 onSheet = {showSheet = true},
                 miejsceOdbioru = miejsceOdbioru
             )
-        } else {
+        } else if (currentState == 1) {
             StepTwo(
                 innerPading = innerPading,
                 pickupOption = pickupOption
+            )
+        } else {
+            StepThree(
+                innerPading = innerPading
             )
         }
 
@@ -378,5 +386,69 @@ fun StepTwo(
                 modifier = Modifier.padding(horizontal = 32.dp)
             )
         }
+    }
+}
+
+@Composable
+fun StepThree(innerPading: PaddingValues,) {
+    val baseSize = 100f
+
+    val animatedSize = remember { Animatable(baseSize) }
+
+    var paymentMade by remember { mutableStateOf(false) }
+
+    LaunchedEffect(paymentMade) {
+        if (!paymentMade) {
+            val startTime = withFrameNanos { it }
+            while (!paymentMade && (withFrameNanos { it } - startTime) < 3_000_000_000L) {
+                animatedSize.animateTo(
+                    targetValue = baseSize * 0.5f,
+                    animationSpec = tween(durationMillis = 500, easing = LinearEasing)
+                )
+                animatedSize.animateTo(
+                    targetValue = baseSize,
+                    animationSpec = tween(durationMillis = 500, easing = LinearEasing)
+                )
+            }
+        }
+        paymentMade = true
+    }
+
+    if (!paymentMade) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPading),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            // Stały box z maksymalnym rozmiarem — rezerwuje miejsce
+            Box(
+                modifier = Modifier
+                    .size(baseSize.dp), // stały rozmiar kontenera
+                contentAlignment = Alignment.Center
+            ) {
+                // Skalujemy obrazek w środku boxa
+                Image(
+                    painter = painterResource(R.drawable.icon4),
+                    contentDescription = "",
+                    modifier = Modifier.size(animatedSize.value.dp)
+                )
+            }
+
+            Text(
+                text = "Realizowanie płatności",
+                color = Color.Black,
+                fontWeight = FontWeight.Bold,
+                style = MaterialTheme.typography.headlineSmall,
+                modifier = Modifier.padding(10.dp)
+            )
+        }
+    } else {
+        Image(
+            painter = painterResource(R.drawable.step_three),
+            contentDescription = "",
+            modifier = Modifier.fillMaxSize()
+        )
     }
 }

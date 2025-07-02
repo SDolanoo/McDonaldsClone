@@ -76,12 +76,6 @@ fun AppNavGraph(navController: NavHostController) {
                 )
             }
 
-            composable(Screen.Coupons.route) {
-//            CouponsScreen(onCouponClick = { couponId ->
-//                navController.navigate(Screen.CouponDetails.createRoute(couponId))
-//            })
-            }
-
             composable(Screen.MakeOrder.route) {
                 MakeOrderScreen(
                     onBackClick = {navController.navigate(Screen.ZamowIOdbierz.route)}
