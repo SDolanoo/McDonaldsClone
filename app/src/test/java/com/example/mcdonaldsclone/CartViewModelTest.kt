@@ -24,7 +24,7 @@ class CartViewModelTest {
     @Before
     fun setup() {
         Dispatchers.setMain(UnconfinedTestDispatcher())
-        fakeDataProvider = FakeDataProvider // zakładamy że masz klasę testową
+        fakeDataProvider = FakeDataProvider
         viewModel = CartViewModel(fakeDataProvider)
     }
 
@@ -77,7 +77,7 @@ class CartViewModelTest {
 
         val composing = viewModel.composingSet.value
         val found = composing.listMenuItems.count { it.subCategoryId == 10L }
-        assertEquals(1, found) // Tylko jedna z kategorią 10L powinna być
+        assertEquals(1, found)
         assertEquals(sauce2.id, composing.listMenuItems.find { it.subCategoryId == 10L }?.id)
     }
 
